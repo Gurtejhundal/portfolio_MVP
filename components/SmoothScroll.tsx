@@ -42,7 +42,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
       event.preventDefault();
       lenis.scrollTo(target, {
-        offset: hash === "#top" ? 0 : -72,
+        offset: hash === "#top" || hash === "#contact" ? 0 : -72,
         duration: 1.05
       });
       window.history.pushState(null, "", hash);

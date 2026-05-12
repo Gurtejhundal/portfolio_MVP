@@ -12,6 +12,9 @@
   --warm-gold: #c79a55;
   --line: rgba(243, 239, 230, 0.15);
   --line-strong: rgba(243, 239, 230, 0.28);
+  --glass: rgba(243, 239, 230, 0.07);
+  --glass-strong: rgba(243, 239, 230, 0.13);
+  --glass-line: rgba(243, 239, 230, 0.22);
   --page-pad: clamp(20px, 4vw, 72px);
   --max-width: 1440px;
   --display-font: "Geist", "Neue Haas Grotesk", "General Sans", "Arial", sans-serif;
@@ -164,9 +167,12 @@ img {
 
 .site-nav--scrolled {
   padding-block: 14px;
-  background: rgba(5, 5, 5, 0.72);
-  border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(18px);
+  background:
+    linear-gradient(135deg, rgba(243, 239, 230, 0.09), rgba(243, 239, 230, 0.025)),
+    rgba(5, 5, 5, 0.68);
+  border-bottom: 1px solid var(--glass-line);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(22px) saturate(1.18);
 }
 
 .nav-brand {
@@ -237,15 +243,18 @@ img {
   display: none;
   justify-self: end;
   min-height: 44px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--glass-line);
   border-radius: 999px;
   padding: 0 18px;
-  background: rgba(5, 5, 5, 0.5);
+  background:
+    linear-gradient(135deg, rgba(243, 239, 230, 0.13), rgba(243, 239, 230, 0.035)),
+    rgba(5, 5, 5, 0.5);
   color: var(--ivory);
   font: inherit;
   font-size: 0.72rem;
   font-weight: 750;
   text-transform: uppercase;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 18px 42px rgba(0, 0, 0, 0.18);
 }
 
 .mobile-menu {
@@ -394,14 +403,19 @@ strong .text-wipe {
   align-items: center;
   justify-content: center;
   gap: 14px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--glass-line);
   padding: 0 20px;
+  background:
+    linear-gradient(135deg, rgba(243, 239, 230, 0.08), rgba(243, 239, 230, 0.015)),
+    rgba(5, 5, 5, 0.18);
   color: var(--ivory);
   font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
   overflow: hidden;
-  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease, transform 0.18s ease;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 18px 44px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(14px) saturate(1.12);
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease, transform 0.18s ease, box-shadow 0.25s ease;
   will-change: transform;
 }
 
@@ -420,13 +434,16 @@ strong .text-wipe {
 }
 
 .magnetic-button--solid {
-  background: rgba(243, 239, 230, 0.92);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(243, 239, 230, 0.78)),
+    rgba(243, 239, 230, 0.92);
   color: #050505;
 }
 
 .magnetic-button:hover {
   background: rgba(181, 8, 42, 0.12);
   border-color: var(--turban-red);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 22px 58px rgba(181, 8, 42, 0.16);
 }
 
 .magnetic-button:hover::before {
@@ -636,8 +653,14 @@ strong .text-wipe {
   grid-template-columns: 1.8fr 0.55fr;
   gap: 18px;
   margin: 32px 0;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
+  border: 1px solid rgba(243, 239, 230, 0.12);
+  border-top-color: rgba(243, 239, 230, 0.2);
+  background:
+    linear-gradient(135deg, rgba(243, 239, 230, 0.055), rgba(243, 239, 230, 0.015)),
+    rgba(5, 5, 5, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px) saturate(1.08);
+  padding: 18px;
 }
 
 .project-meta-list dt {
@@ -656,8 +679,9 @@ strong .text-wipe {
 .project-panel__image {
   aspect-ratio: 21 / 10;
   min-height: 360px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(243, 239, 230, 0.18);
   background: var(--graphite);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
 }
 
@@ -911,8 +935,13 @@ strong .text-wipe {
 
 .about-facts div,
 .credentials-grid > div {
-  border-top: 1px solid var(--line);
-  padding-top: 16px;
+  border: 1px solid rgba(243, 239, 230, 0.12);
+  background:
+    linear-gradient(135deg, rgba(243, 239, 230, 0.065), rgba(243, 239, 230, 0.018)),
+    rgba(5, 5, 5, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 54px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(18px) saturate(1.12);
+  padding: 16px;
 }
 
 .about-facts span,
@@ -942,6 +971,62 @@ strong .text-wipe {
   margin: 0 0 10px;
   font-size: 0.92rem;
   line-height: 1.45;
+}
+
+.credential-panel {
+  min-height: 158px;
+}
+
+.credential-panel--certificates {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.certificate-link {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: center;
+  border-top: 1px solid rgba(243, 239, 230, 0.12);
+  padding: 12px 0 0;
+  color: var(--ivory);
+  line-height: 1.25;
+}
+
+.certificate-link::after {
+  content: "->";
+  position: absolute;
+  right: 0;
+  bottom: 1px;
+  color: var(--bench-orange);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.24s ease, transform 0.24s ease;
+}
+
+.certificate-link span {
+  padding-right: 24px;
+  font-size: 0.94rem;
+}
+
+.certificate-link small {
+  color: rgba(243, 239, 230, 0.5);
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.certificate-link:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (hover: none) {
+  .certificate-link::after {
+    opacity: 0.78;
+    transform: translateX(0);
+  }
 }
 
 .contact-section {
@@ -1140,6 +1225,36 @@ strong .text-wipe {
     --page-pad: 20px;
   }
 
+  .site-nav {
+    padding: 18px var(--page-pad);
+  }
+
+  .site-nav--scrolled {
+    padding-block: 12px;
+  }
+
+  .nav-brand {
+    width: 94px;
+  }
+
+  .menu-button {
+    min-height: 42px;
+    padding-inline: 16px;
+    background: rgba(5, 5, 5, 0.66);
+    backdrop-filter: blur(12px);
+  }
+
+  .mobile-menu {
+    gap: 14px;
+    justify-content: center;
+    padding: 96px var(--page-pad) max(34px, env(safe-area-inset-bottom));
+    background: rgba(3, 3, 3, 0.985);
+  }
+
+  .mobile-menu a {
+    font-size: clamp(2.35rem, 11.2vw, 4.25rem);
+  }
+
   .section-shell {
     padding-block: clamp(74px, 18vw, 112px);
   }
@@ -1155,7 +1270,7 @@ strong .text-wipe {
   }
 
   .hero-content {
-    padding-bottom: 34px;
+    padding-bottom: max(34px, calc(env(safe-area-inset-bottom) + 24px));
   }
 
   .hero-title {
@@ -1170,14 +1285,21 @@ strong .text-wipe {
     font-size: 0.95rem;
   }
 
+  .hero-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1.18fr) minmax(118px, 0.82fr);
+    gap: 10px;
+    margin-top: 24px;
+  }
+
   .scroll-cue {
     display: none;
   }
 
   .magnetic-button {
     min-height: 48px;
-    flex: 1 1 auto;
-    padding-inline: 16px;
+    width: 100%;
+    padding-inline: 14px;
   }
 
   .identity-track {
@@ -1197,6 +1319,11 @@ strong .text-wipe {
     margin-top: -4px;
   }
 
+  .manifesto-statement h2 {
+    font-size: clamp(2.2rem, 12.2vw, 4.6rem);
+    line-height: 0.96;
+  }
+
   .project-meta-list,
   .process-item,
   .about-facts,
@@ -1206,6 +1333,29 @@ strong .text-wipe {
 
   .process-item {
     gap: 12px;
+  }
+
+  .project-panel {
+    padding-block: clamp(36px, 12vw, 62px);
+  }
+
+  .project-panel::before {
+    inset: 6% auto auto 14%;
+    width: 76vw;
+    height: 240px;
+  }
+
+  .project-panel__image {
+    aspect-ratio: 16 / 10;
+    margin-bottom: 8px;
+  }
+
+  .project-panel h3 {
+    font-size: clamp(2.85rem, 14.4vw, 5.3rem);
+  }
+
+  .project-summary {
+    font-size: clamp(1rem, 5.4vw, 1.25rem);
   }
 
   .narrative-grid {
@@ -1236,12 +1386,64 @@ strong .text-wipe {
   }
 
   .contact-content h2 {
-    font-size: clamp(2.65rem, 13.8vw, 4.9rem);
-    line-height: 0.9;
+    max-width: min(100%, 22rem);
+    font-size: clamp(2rem, 8.7vw, 3.4rem);
+    line-height: 0.92;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .contact-content {
+    min-height: 100svh;
+    align-content: center;
+    gap: 12px;
+    padding-top: clamp(92px, 22vw, 126px);
+    padding-bottom: max(12px, calc(env(safe-area-inset-bottom) + 12px));
+  }
+
+  .contact-copy {
+    padding-bottom: 0;
+  }
+
+  .contact-links {
+    margin: 16px 0;
+    gap: 8px;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-content .magnetic-button {
+    min-height: 44px;
   }
 
   .site-footer {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --page-pad: 18px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.7rem, 12.8vw, 4.7rem);
+  }
+
+  .hero-copy {
+    font-size: 0.92rem;
+  }
+
+  .hero-actions {
+    grid-template-columns: minmax(0, 1.1fr) minmax(112px, 0.78fr);
+  }
+
+  .magnetic-button {
+    gap: 10px;
+    font-size: 0.67rem;
+  }
+
+  .contact-content h2 {
+    font-size: clamp(1.95rem, 8.6vw, 3.25rem);
   }
 }
 

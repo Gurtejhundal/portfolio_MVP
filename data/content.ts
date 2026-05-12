@@ -81,9 +81,21 @@ export const credentials = {
     "B.Tech student"
   ],
   certificates: [
-    "Introduction to AI & ML - Infosys - 2026",
-    "Leadership and Management - 2025",
-    "Gemini - 2025"
+    {
+      title: "Leadership Fundamentals",
+      issuer: "2025",
+      href: "https://drive.google.com/file/d/1TZKULAFWpNlw9rzkQDKEe5mfPYJZXbVD/view?usp=drive_link"
+    },
+    {
+      title: "Leadership and Management",
+      issuer: "2025",
+      href: "https://drive.google.com/file/d/1dzElGHdWmK0dQN0Ypqnb33j_l6sjs_ZH/view?usp=drive_link"
+    },
+    {
+      title: "Gemini",
+      issuer: "2025",
+      href: "https://drive.google.com/file/d/1iFbEl34JtgzbXnGjxpl5--tZIMkQ3Puf/view?usp=drive_link"
+    }
   ]
 };
 

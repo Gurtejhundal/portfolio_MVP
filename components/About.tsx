@@ -44,16 +44,25 @@ export function About() {
             </div>
           </div>
           <div className="credentials-grid">
-            <div>
+            <div className="credential-panel">
               <h3>Education</h3>
               {credentials.education.map((item) => (
                 <p key={item}>{item}</p>
               ))}
             </div>
-            <div>
+            <div className="credential-panel credential-panel--certificates">
               <h3>Certificates</h3>
               {credentials.certificates.map((item) => (
-                <p key={item}>{item}</p>
+                <a
+                  className="certificate-link"
+                  href={item.href}
+                  key={item.href}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  <span>{item.title}</span>
+                  <small>{item.issuer}</small>
+                </a>
               ))}
             </div>
           </div>
