@@ -1,7 +1,7 @@
 export const site = {
   name: "Gurtejbir Singh",
   label: "Creative Developer",
-  email: "gurtejbjr.29107@gmail.com",
+  email: "gurtejbir.29107@gmail.com",
   phone: "7626929107",
   location: "Amritsar, Punjab",
   description:
