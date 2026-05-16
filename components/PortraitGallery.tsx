@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { EffectCoverflow, Pagination } from "swiper/modules";
+import { EffectCoverflow, Mousewheel, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const portraitImages = [
@@ -62,19 +62,28 @@ export function PortraitGallery() {
           centeredSlides
           className="portrait-swiper"
           coverflowEffect={{
-            rotate: 28,
-            stretch: 18,
-            depth: 120,
+            rotate: 24,
+            stretch: 10,
+            depth: 110,
             modifier: 1,
             slideShadows: false
           }}
           effect="coverflow"
           grabCursor
           loop
-          modules={[EffectCoverflow, Pagination]}
+          modules={[EffectCoverflow, Mousewheel, Pagination]}
+          mousewheel={{
+            enabled: true,
+            forceToAxis: false,
+            sensitivity: 0.55,
+            thresholdDelta: 18,
+            thresholdTime: 520
+          }}
           pagination={{ clickable: true, dynamicBullets: true }}
+          preventInteractionOnTransition
           slidesPerView="auto"
-          spaceBetween={34}
+          spaceBetween={38}
+          speed={850}
         >
           {portraitImages.map((image, index) => (
             <SwiperSlide key={image}>

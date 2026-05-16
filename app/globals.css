@@ -828,6 +828,7 @@ strong .text-wipe {
   width: min(100%, 1120px);
   margin-inline: auto;
   padding: 8px 0 48px !important;
+  overscroll-behavior: contain;
 }
 
 .portrait-swiper .swiper-slide {
@@ -836,7 +837,7 @@ strong .text-wipe {
   aspect-ratio: 4 / 5;
   background: transparent;
   opacity: 0.52;
-  transition: opacity 0.32s ease, filter 0.32s ease;
+  transition: opacity 0.52s ease, filter 0.52s ease;
 }
 
 .portrait-swiper .swiper-slide-active {
