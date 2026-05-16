@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { EffectCoverflow, Mousewheel, Pagination } from "swiper/modules";
+import { useEffect, useRef, useState } from "react";
+import type { Swiper as SwiperInstance } from "swiper";
+import { EffectCoverflow, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const portraitImages = [
@@ -28,6 +29,11 @@ const portraitImages = [
 
 export function PortraitGallery() {
   const [activeImage, setActiveImage] = useState<string | null>(null);
+  const galleryRef = useRef<HTMLDivElement | null>(null);
+  const swiperRef = useRef<SwiperInstance | null>(null);
+  const wheelDeltaRef = useRef(0);
+  const wheelLockedRef = useRef(false);
+  const wheelUnlockTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!activeImage) {
@@ -49,10 +55,70 @@ export function PortraitGallery() {
     };
   }, [activeImage]);
 
+  useEffect(() => {
+    const gallery = galleryRef.current;
+
+    if (!gallery) {
+      return;
+    }
+
+    const handleGalleryWheel = (event: WheelEvent) => {
+      const swiper = swiperRef.current;
+
+      if (!swiper) {
+        return;
+      }
+
+      const primaryDelta =
+        Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+
+      if (Math.abs(primaryDelta) < 4) {
+        return;
+      }
+
+      event.preventDefault();
+      wheelDeltaRef.current += primaryDelta;
+
+      if (wheelLockedRef.current || Math.abs(wheelDeltaRef.current) < 44) {
+        return;
+      }
+
+      const direction = wheelDeltaRef.current > 0 ? "next" : "prev";
+      wheelDeltaRef.current = 0;
+      wheelLockedRef.current = true;
+
+      if (direction === "next") {
+        swiper.slideNext();
+      } else {
+        swiper.slidePrev();
+      }
+
+      if (wheelUnlockTimeoutRef.current) {
+        window.clearTimeout(wheelUnlockTimeoutRef.current);
+      }
+
+      wheelUnlockTimeoutRef.current = window.setTimeout(() => {
+        wheelLockedRef.current = false;
+        wheelUnlockTimeoutRef.current = null;
+      }, 680);
+    };
+
+    gallery.addEventListener("wheel", handleGalleryWheel, { passive: false });
+
+    return () => {
+      gallery.removeEventListener("wheel", handleGalleryWheel);
+
+      if (wheelUnlockTimeoutRef.current) {
+        window.clearTimeout(wheelUnlockTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <>
       <motion.div
         className="portrait-gallery"
+        ref={galleryRef}
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-12% 0px" }}
@@ -62,28 +128,27 @@ export function PortraitGallery() {
           centeredSlides
           className="portrait-swiper"
           coverflowEffect={{
-            rotate: 24,
-            stretch: 10,
-            depth: 110,
-            modifier: 1,
+            rotate: 12,
+            stretch: 0,
+            depth: 82,
+            modifier: 0.82,
+            scale: 0.94,
             slideShadows: false
           }}
           effect="coverflow"
           grabCursor
           loop
-          modules={[EffectCoverflow, Mousewheel, Pagination]}
-          mousewheel={{
-            enabled: true,
-            forceToAxis: false,
-            sensitivity: 0.55,
-            thresholdDelta: 18,
-            thresholdTime: 520
+          longSwipesRatio={0.18}
+          modules={[EffectCoverflow, Pagination]}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
           }}
           pagination={{ clickable: true, dynamicBullets: true }}
-          preventInteractionOnTransition
+          resistanceRatio={0.68}
           slidesPerView="auto"
-          spaceBetween={38}
-          speed={850}
+          spaceBetween={34}
+          speed={1150}
+          touchRatio={0.9}
         >
           {portraitImages.map((image, index) => (
             <SwiperSlide key={image}>

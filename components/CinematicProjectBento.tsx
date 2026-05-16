@@ -5,6 +5,8 @@ import { MouseEvent } from "react";
 import { motion } from "framer-motion";
 import { projects, type Project } from "@/data/projects";
 
+const cardLayouts = ["hero", "tall", "wide", "compact"] as const;
+
 function updateFeaturedPointer(event: MouseEvent<HTMLAnchorElement>) {
   const card = event.currentTarget;
   const rect = card.getBoundingClientRect();
@@ -37,11 +39,12 @@ function ProjectCard({
   index: number;
 }) {
   const isFeatured = index === 0;
+  const layout = cardLayouts[index] ?? "compact";
 
   return (
     <motion.a
       aria-label={`Open ${project.title} live project`}
-      className={`cinematic-project-card ${isFeatured ? "cinematic-project-card--featured" : ""}`}
+      className={`cinematic-project-card cinematic-project-card--${layout}`}
       href={project.liveUrl}
       initial={{ opacity: 0, y: 34 }}
       onMouseLeave={isFeatured ? resetFeaturedPointer : undefined}
@@ -57,6 +60,7 @@ function ProjectCard({
           alt={project.image.alt}
           className="cinematic-project-card__image"
           height={project.image.height}
+          priority={isFeatured}
           sizes={isFeatured ? "(max-width: 900px) 100vw, 64vw" : "(max-width: 900px) 100vw, 34vw"}
           src={project.image.src}
           width={project.image.width}
@@ -65,33 +69,14 @@ function ProjectCard({
 
       <div className="cinematic-project-card__body">
         <div className="cinematic-project-card__meta">
-          <span>
-            {String(index + 1).padStart(2, "0")}/{String(projects.length).padStart(2, "0")}
-          </span>
+          <span>{String(index + 1).padStart(2, "0")}</span>
           <span>{project.category}</span>
           <span>{project.year}</span>
         </div>
         <h3>{project.title}</h3>
         <p className="cinematic-project-card__summary">{project.summary}</p>
-        <p className="cinematic-project-card__insight">{project.description}</p>
-
-        <div className="cinematic-project-card__details">
-          <div>
-            <span>Role</span>
-            <p>{project.role}</p>
-          </div>
-          <div>
-            <span>Focus</span>
-            <ul>
-              {project.tags.map((tag) => (
-                <li key={tag}>{tag}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <span className="cinematic-project-card__cta">
-          View live experience <i aria-hidden="true">-&gt;</i>
+        <span className="cinematic-project-card__tagline">
+          {project.tags.slice(0, 2).join(" / ")}
         </span>
       </div>
     </motion.a>
