@@ -11,6 +11,7 @@ export const projects = [
       "A premium commerce flagship for attars, perfumes, jewelry, and concierge gifting.",
     description:
       "Built around restraint, curated collections, WhatsApp ordering, and high-end product storytelling.",
+    tags: ["Luxury Commerce", "WhatsApp Ordering", "Product Storytelling"],
     liveUrl: "https://luxury-taste.vercel.app/",
     image: assets.swsLuxuryProject,
     featured: true,
@@ -26,6 +27,7 @@ export const projects = [
       "An open-source impact lab that turns real-world problems into buildable public-good blueprints.",
     description:
       "Structured around problem-first workflows, agent review, contributor tasks, GitHub-ready files, and pilot planning.",
+    tags: ["AI Product", "Open Source", "Public-Good Systems"],
     liveUrl: "https://ghost-engineer-psi.vercel.app/",
     image: assets.ghostEngineerProject,
     featured: true,
@@ -41,6 +43,7 @@ export const projects = [
       "A conversion-focused website for a premium car detailing and protection studio.",
     description:
       "Designed around trust, finish quality, service clarity, booking intent, and premium automotive presentation.",
+    tags: ["Automotive", "Premium Service", "Booking Flow"],
     liveUrl: "https://car-detailing-studio-seven.vercel.app/",
     image: assets.obsidianProject,
     featured: true,
@@ -56,6 +59,7 @@ export const projects = [
       "A premium gym website built around coaching credibility, clear membership paths, and conversion.",
     description:
       "Structured for serious beginners, professionals, and athletes who need visible progress and clear next steps.",
+    tags: ["Fitness", "Commercial Website", "Conversion"],
     liveUrl: "https://gym-two-sigma.vercel.app/",
     image: assets.ironForgeProject,
     featured: false,

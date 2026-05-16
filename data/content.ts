@@ -5,7 +5,7 @@ export const site = {
   phone: "7626929107",
   location: "Amritsar, Punjab",
   description:
-    "Creative developer crafting premium digital experiences through motion, visual systems, and sharp execution.",
+    "Creative developer crafting cinematic digital products through motion, visual systems, and sharp execution.",
   footer:
     "Designed and built by Gurtejbir Singh. Digital experiences with motion, clarity, and restraint."
 };

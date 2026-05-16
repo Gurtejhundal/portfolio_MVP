@@ -17,8 +17,9 @@ export const metadata: Metadata = {
     siteName: "Gurtejbir Singh Portfolio"
   },
   icons: {
-    icon: "/Primary%20Hero%20Portrait.png",
-    apple: "/Primary%20Hero%20Portrait.png"
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png"
   },
   metadataBase: new URL("https://www.protfolio.com")
 };

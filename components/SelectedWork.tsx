@@ -1,5 +1,4 @@
-import { projects } from "@/data/projects";
-import { ProjectPanel } from "./ProjectPanel";
+import { CinematicProjectBento } from "./CinematicProjectBento";
 import { Reveal } from "./Reveal";
 
 export function SelectedWork() {
@@ -16,11 +15,7 @@ export function SelectedWork() {
           clear structure, and visual presence.
         </p>
       </Reveal>
-      <div className="project-stack">
-        {projects.map((project, index) => (
-          <ProjectPanel key={project.slug} project={project} index={index} total={projects.length} />
-        ))}
-      </div>
+      <CinematicProjectBento />
     </section>
   );
 }
