@@ -38,14 +38,22 @@ export function ProjectPanel({ project, index, total }: ProjectPanelProps) {
           </MagneticButton>
         </Reveal>
       </div>
-      <ImageReveal
-        src={project.image.src}
-        alt={project.image.alt}
-        width={project.image.width}
-        height={project.image.height}
-        sizes="(max-width: 900px) 100vw, 58vw"
-        frameClassName="project-panel__image"
-      />
+      <a
+        aria-label={`Open ${project.title} project`}
+        className="project-panel__media-link"
+        href={project.liveUrl}
+        rel="noreferrer"
+        target="_blank"
+      >
+        <ImageReveal
+          src={project.image.src}
+          alt={project.image.alt}
+          width={project.image.width}
+          height={project.image.height}
+          sizes="(max-width: 900px) 100vw, 58vw"
+          frameClassName="project-panel__image"
+        />
+      </a>
     </article>
   );
 }

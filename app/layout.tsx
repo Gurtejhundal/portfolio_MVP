@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
 import "./globals.css";
 
 export const metadata: Metadata = {
