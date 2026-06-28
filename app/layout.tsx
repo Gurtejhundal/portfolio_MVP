@@ -2,16 +2,19 @@ import type { Metadata } from "next";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
+import "@/components/CardSwap.css";
+import "@/components/CircularGallery.css";
+import "@/components/CurvedLoop.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Gurtejbir Singh - Creative Developer & Digital Experience Builder",
+  title: "Gurtejbir Singh - Student Developer Portfolio",
   description:
-    "Portfolio of Gurtejbir Singh, a creative developer building premium digital experiences, cinematic landing pages, and motion-led interfaces for brands and products.",
+    "Portfolio of Gurtejbir Singh, a B.Tech student building polished web interfaces, project-backed frontend work, and motion-led digital experiences.",
   openGraph: {
-    title: "Gurtejbir Singh - Creative Developer",
+    title: "Gurtejbir Singh - Student Developer Portfolio",
     description:
-      "Premium digital experiences, cinematic landing pages, and motion-led interfaces.",
+      "Project-backed frontend work, polished web interfaces, and motion-led digital experiences.",
     images: ["/Primary%20Hero%20Portrait.png"],
     type: "website",
     siteName: "Gurtejbir Singh Portfolio"

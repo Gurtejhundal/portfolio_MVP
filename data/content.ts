@@ -1,13 +1,13 @@
 export const site = {
   name: "Gurtejbir Singh",
-  label: "Creative Developer",
+  label: "Student Creative Developer",
   email: "gurtejbir.29107@gmail.com",
   phone: "7626929107",
   location: "Amritsar, Punjab",
   description:
-    "Creative developer crafting cinematic digital products through motion, visual systems, and sharp execution.",
+    "B.Tech student building polished web interfaces, motion-led screens, and project-backed frontend work.",
   footer:
-    "Designed and built by Gurtejbir Singh. Digital experiences with motion, clarity, and restraint."
+    "Designed and built by Gurtejbir Singh. Student portfolio focused on skill, proof, and steady execution."
 };
 
 export const navigation = [
@@ -19,43 +19,43 @@ export const navigation = [
 
 export const manifesto = [
   {
-    lead: "Motion is not decoration.",
-    support: "It is hierarchy in time."
+    lead: "Skill needs proof.",
+    support: "Projects show more than claims."
   },
   {
-    lead: "Luxury is not more.",
-    support: "It is fewer things executed better."
+    lead: "Taste is learned by building.",
+    support: "Every screen is a sharper attempt."
   },
   {
     lead: "Interfaces should communicate",
-    support: "before users start thinking."
+    support: "before the user has to decode them."
   },
   {
-    lead: "A website should not just load.",
-    support: "It should arrive."
+    lead: "Good work compounds.",
+    support: "One project improves the next."
   }
 ];
 
 export const process = [
   {
-    title: "Direction",
-    text: "Define the emotion, audience, and business purpose before the first layout decision."
+    title: "Study",
+    text: "Break down strong interfaces, spacing, motion, typography, and how attention moves through a page."
   },
   {
     title: "Structure",
-    text: "Build the page system and decision path before decorating the surface."
+    text: "Plan sections, responsive behavior, and content hierarchy before styling the surface."
   },
   {
     title: "Interface",
-    text: "Create layouts that guide attention with spacing, contrast, and clear hierarchy."
+    text: "Build the screen with clear layout, accessible markup, and consistent component behavior."
   },
   {
     title: "Motion",
-    text: "Use animation to reveal, pace, and clarify. Never to distract."
+    text: "Use animation to reveal, pace, and clarify instead of distracting from the content."
   },
   {
-    title: "Launch",
-    text: "Ship fast, test on real screens, polish the weak points, and improve."
+    title: "Ship",
+    text: "Deploy the work, test real screens, find weak points, and improve the next version."
   }
 ];
 
@@ -63,12 +63,12 @@ export const capabilities = [
   "UI Design",
   "Frontend Development",
   "Motion Design",
-  "Landing Pages",
-  "Brand Websites",
+  "Next.js",
+  "React",
   "Responsive Systems",
   "Interaction Design",
   "Deployment",
-  "Project Management",
+  "TypeScript",
   "Communication",
   "Leadership",
   "Critical Thinking"

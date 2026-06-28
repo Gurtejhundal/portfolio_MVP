@@ -44,7 +44,7 @@ export function Navbar() {
       </nav>
 
       <a className="nav-contact" href={`mailto:${site.email}`}>
-        Start a Project
+        Get in touch
       </a>
 
       <button

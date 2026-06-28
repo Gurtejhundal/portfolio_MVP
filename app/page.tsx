@@ -10,6 +10,7 @@ import { Navbar } from "@/components/Navbar";
 import { Preloader } from "@/components/Preloader";
 import { Process } from "@/components/Process";
 import { SelectedWork } from "@/components/SelectedWork";
+import { SkillLoop } from "@/components/SkillLoop";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { VisualNarrative } from "@/components/VisualNarrative";
 
@@ -22,6 +23,7 @@ export default function Home() {
       <main>
         <Hero />
         <IdentityStrip />
+        <SkillLoop />
         <Manifesto />
         <SelectedWork />
         <Process />

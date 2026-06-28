@@ -21,17 +21,16 @@ export function About() {
         />
         <Reveal className="about-copy">
           <p className="about-lead">
-            I am Gurtej, a B.Tech student focused on web development, software
-            engineering, and premium digital interfaces.
+            I am Gurtej, a B.Tech student focused on frontend development,
+            interface design, motion, and software engineering fundamentals.
           </p>
           <p>
-            My work sits between design and implementation: cinematic landing
-            pages, responsive systems, conversion-focused structures, and
-            motion-led storytelling.
+            My work sits between design and implementation: project-backed
+            websites, responsive systems, animation, and structured UI decisions.
           </p>
           <p>
-            I build pages that create a first impression, guide decisions, and
-            make the product feel sharper.
+            I am not trying to look like a studio. I am building a body of work
+            that shows taste, discipline, and the ability to ship.
           </p>
           <div className="about-facts">
             <div>
@@ -40,7 +39,7 @@ export function About() {
             </div>
             <div>
               <span>Focus</span>
-              <strong>Premium websites and motion-led interfaces</strong>
+              <strong>Frontend, motion, design systems, and project execution</strong>
             </div>
           </div>
           <div className="credentials-grid">

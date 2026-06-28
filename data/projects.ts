@@ -4,11 +4,11 @@ export const projects = [
   {
     slug: "sws-luxury",
     title: "SWS Luxury",
-    category: "Luxury Commerce Experience",
+    category: "Commerce UI Study",
     year: "2026",
-    role: "Design direction, frontend build, responsive commerce flow",
+    role: "Student frontend build, visual direction, responsive commerce flow",
     summary:
-      "A premium commerce flagship for attars, perfumes, jewelry, and concierge gifting.",
+      "A commerce interface study for attars, jewelry, gifting, and curated product storytelling.",
     description:
       "Built around restraint, curated collections, WhatsApp ordering, and high-end product storytelling.",
     tags: ["Luxury Commerce", "WhatsApp Ordering", "Product Storytelling"],
@@ -20,9 +20,9 @@ export const projects = [
   {
     slug: "ghost-engineer",
     title: "Ghost Engineer",
-    category: "AI Product / Open-Source System",
+    category: "AI Product Interface",
     year: "2026",
-    role: "Product structure, interface design, frontend build, AI workflow presentation",
+    role: "Product structure, interface design, frontend build, workflow presentation",
     summary:
       "An open-source impact lab that turns real-world problems into buildable public-good blueprints.",
     description:
@@ -36,11 +36,11 @@ export const projects = [
   {
     slug: "obsidian-finish",
     title: "Obsidian Finish Studio",
-    category: "Premium Service Website",
+    category: "Service Website Study",
     year: "2026",
-    role: "Brand positioning, landing architecture, frontend build, service conversion flow",
+    role: "Landing architecture, responsive frontend build, service information design",
     summary:
-      "A conversion-focused website for a premium car detailing and protection studio.",
+      "A structured website study for a car detailing and protection studio.",
     description:
       "Designed around trust, finish quality, service clarity, booking intent, and premium automotive presentation.",
     tags: ["Automotive", "Premium Service", "Booking Flow"],
@@ -54,9 +54,9 @@ export const projects = [
     title: "Iron Forge Athletics",
     category: "Fitness / Commercial Website",
     year: "2026",
-    role: "Landing strategy, responsive build, service explanation, CTA structure",
+    role: "Responsive frontend build, section hierarchy, CTA structure",
     summary:
-      "A premium gym website built around coaching credibility, clear membership paths, and conversion.",
+      "A gym website study built around coaching credibility and clear membership paths.",
     description:
       "Structured for serious beginners, professionals, and athletes who need visible progress and clear next steps.",
     tags: ["Fitness", "Commercial Website", "Conversion"],

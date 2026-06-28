@@ -1,10 +1,10 @@
 import { Reveal } from "./Reveal";
 
 const identityItems = [
-  "Creative Developer",
+  "B.Tech Student",
+  "Frontend Development",
   "Motion-led Interfaces",
-  "Premium Landing Pages",
-  "Digital Product Experiences"
+  "Project-backed Proof"
 ];
 
 export function IdentityStrip() {

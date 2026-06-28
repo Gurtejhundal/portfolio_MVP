@@ -9,7 +9,7 @@ export function Capabilities() {
         <span>Capabilities</span>
       </div>
       <Reveal className="capabilities-heading">
-        <h2>Built for premium web experiences.</h2>
+        <h2>Skills I am actively turning into proof.</h2>
       </Reveal>
       <div className="capability-list">
         {capabilities.map((item) => (

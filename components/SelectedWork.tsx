@@ -1,4 +1,4 @@
-import { CinematicProjectBento } from "./CinematicProjectBento";
+import { ProjectCardSwap } from "./ProjectCardSwap";
 import { Reveal } from "./Reveal";
 
 export function SelectedWork() {
@@ -9,13 +9,13 @@ export function SelectedWork() {
         <span>Selected Work</span>
       </div>
       <Reveal className="work-intro">
-        <h2>Selected work</h2>
+        <h2>Project proof</h2>
         <p>
-          A focused set of production websites built around premium positioning,
-          clear structure, and visual presence.
+          Live project builds that show how I think through layout, motion,
+          hierarchy, and responsive execution as a student developer.
         </p>
       </Reveal>
-      <CinematicProjectBento />
+      <ProjectCardSwap />
     </section>
   );
 }
