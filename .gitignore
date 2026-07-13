@@ -8,6 +8,10 @@ out
 *.log
 .next-dev.*.log
 .qa
+.playwright-cli/
+output/
+tmp/
+/public/g_singh_signature_black_bold_transparent.png
 *.tsbuildinfo
 
 Thumbs.db

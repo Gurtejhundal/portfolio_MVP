@@ -1,40 +1,95 @@
-import type { Metadata } from "next";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-import "@/components/CardSwap.css";
-import "@/components/CircularGallery.css";
-import "@/components/CurvedLoop.css";
+import type { Metadata, Viewport } from "next";
+import { Geist, Instrument_Sans, Instrument_Serif } from "next/font/google";
+import { RouteTransitionProvider } from "@/components/site/RouteTransitionProvider";
+import { SiteChrome } from "@/components/site/SiteChrome";
+import { site } from "@/data/site";
 import "./globals.css";
 
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap"
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-display",
+  display: "swap"
+});
+
+const instrumentSans = Instrument_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-home",
+  display: "swap"
+});
+
 export const metadata: Metadata = {
-  title: "Gurtejbir Singh - Student Developer Portfolio",
-  description:
-    "Portfolio of Gurtejbir Singh, a B.Tech student building polished web interfaces, project-backed frontend work, and motion-led digital experiences.",
+  metadataBase: new URL(site.url),
+  title: {
+    default: `${site.name} — Designer & Developer`,
+    template: `%s — ${site.name}`
+  },
+  description: "Portfolio of Gurtejbir Singh, a designer and developer creating distinctive digital products, brand websites and interactive experiences.",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Gurtejbir Singh - Student Developer Portfolio",
-    description:
-      "Project-backed frontend work, polished web interfaces, and motion-led digital experiences.",
-    images: ["/Primary%20Hero%20Portrait.png"],
-    type: "website",
-    siteName: "Gurtejbir Singh Portfolio"
+    title: `${site.name} — Designer & Developer`,
+    description: site.statement,
+    url: "/",
+    siteName: `${site.name} Portfolio`,
+    images: [{ url: "/images/gurtejbir-hero.png", width: 1254, height: 1254, alt: `${site.name} portrait` }],
+    type: "website"
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} — Designer & Developer`,
+    description: site.statement,
+    images: ["/images/gurtejbir-hero.png"]
+  },
+  manifest: "/site.webmanifest",
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/favicon.png"
-  },
-  metadataBase: new URL("https://www.protfolio.com")
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" }
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png"
+  }
 };
 
-export default function RootLayout({
-  children
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  themeColor: "#f1efe9",
+  colorScheme: "light"
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: site.name,
+    url: site.url,
+    email: `mailto:${site.email}`,
+    jobTitle: site.role,
+    homeLocation: { "@type": "Place", name: site.location },
+    sameAs: [site.github]
+  };
+
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className={`${geist.variable} ${instrumentSerif.variable} ${instrumentSans.variable}`}>
+      <body>
+        <RouteTransitionProvider>
+          <a className="skip-link" href="#main-content">Skip to content</a>
+          <SiteChrome />
+          <main id="main-content" data-page-content>{children}</main>
+        </RouteTransitionProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </body>
     </html>
   );
 }

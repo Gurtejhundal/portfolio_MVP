@@ -14,7 +14,7 @@ if not exist "node_modules" (
 )
 
 echo Starting Gurtej portfolio at http://localhost:3000
-start "" "http://localhost:3000"
+start /b cmd /c "timeout /t 3 >nul && start http://localhost:3000"
 call npm run dev -- --port 3000
 
 pause
