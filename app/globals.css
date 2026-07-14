@@ -4797,7 +4797,6 @@ body:has(.home-experience) .site-footer {
     gap: 5rem;
     width: 100%;
     padding: 0;
-    transform: none !important;
   }
 
   .recent-card,
@@ -6102,12 +6101,10 @@ body:has(.home-experience) .site-footer {
     gap: 4rem;
     width: 100%;
     height: auto;
-    transform: none !important;
   }
 
   .recent-card {
     width: 100%;
-    transform: none !important;
   }
 
   .recent-card:nth-child(even) {
@@ -6527,7 +6524,8 @@ body:has(.home-experience) .site-footer {
   }
 
   .recent-work__sticky {
-    position: relative;
+    position: sticky;
+    top: 0;
     width: 100%;
     height: 100svh;
     overflow: hidden;
@@ -6557,7 +6555,7 @@ body:has(.home-experience) .site-footer {
     align-items: center;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    left: 0;
     height: auto;
     gap: clamp(16px, 4vw, 24px);
     width: max-content;
@@ -6569,12 +6567,17 @@ body:has(.home-experience) .site-footer {
     margin-top: 0 !important;
   }
 
-  .recent-card--1 { width: 72vw; }
-  .recent-card--2 { width: 86vw; }
-  .recent-card--3 { width: 74vw; }
-  .recent-card--4 { width: 82vw; }
-  .recent-card--5 { width: 75vw; }
-  .recent-card--6 { width: 85vw; }
+  .recent-work__track > .recent-card {
+    min-width: 0;
+    margin-left: 0;
+  }
+
+  .recent-work__track > .recent-card--1 { width: 72vw; }
+  .recent-work__track > .recent-card--2 { width: 86vw; }
+  .recent-work__track > .recent-card--3 { width: 74vw; }
+  .recent-work__track > .recent-card--4 { width: 82vw; }
+  .recent-work__track > .recent-card--5 { width: 75vw; }
+  .recent-work__track > .recent-card--6 { width: 85vw; }
 
   .recent-card__media {
     width: 100%;
@@ -6770,12 +6773,6 @@ body:has(.home-experience) .site-footer {
 /* Keep the fixed contact scene viewport-relative between route animations. */
 [data-page-content] {
   will-change: auto;
-}
-
-/* Hide the dark contact scene during route transitions so it doesn't flash
-   behind the incoming page content while opacity animates from 0 → 1. */
-.is-route-transitioning .contact-depth-scene {
-  visibility: hidden;
 }
 
 /* About page: reference-led editorial composition in the Gurtejbir system. */

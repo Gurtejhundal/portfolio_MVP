@@ -282,7 +282,7 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
       timeline.to(supportingContent, { y: 0, opacity: 1, duration: 0.5, stagger: 0.05 }, 0.4 * durationMultiplier);
     }
 
-    timeline.call(finishTransition, [], 0.65 * durationMultiplier);
+    timeline.call(finishTransition);
   }, [finishTransition]);
 
   const coverAndNavigate = useCallback((pending: PendingRoute) => {

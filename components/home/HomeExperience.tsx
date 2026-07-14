@@ -92,58 +92,32 @@ export function HomeExperience() {
     gsap.registerPlugin(ScrollTrigger);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    let mmContext: any = null;
+    let mmContext: ReturnType<typeof gsap.matchMedia> | null = null;
 
     const setupGSAP = () => {
       const mm = gsap.matchMedia();
       mmContext = mm;
 
       // Project snap calculator based on real track measurements
-      const calculateSnapPoints = (isMobile: boolean, track: HTMLElement, cards: HTMLElement[]) => {
+      const calculateSnapPoints = (track: HTMLElement, cards: HTMLElement[]) => {
         const viewportWidth = window.innerWidth;
         const snapPoints: number[] = [];
+        const endX = -Math.max(0, track.scrollWidth - viewportWidth + viewportWidth * 0.08);
 
-        if (isMobile) {
-          const startX = viewportWidth * 0.08;
-          const horizontalTravel = track.scrollWidth - viewportWidth;
-          const endX = -horizontalTravel;
+        snapPoints.push(0);
+        snapPoints.push(0.16);
 
-          // Add base snap points
-          snapPoints.push(0);
-          snapPoints.push(0.12); // Heading recedes start
-          snapPoints.push(0.18); // Cards entry start
-          snapPoints.push(0.36); // Phase 4 start
+        cards.forEach((card) => {
+          const cardCenter = card.offsetLeft + card.clientWidth / 2;
+          const targetX = viewportWidth / 2 - cardCenter;
+          const clampedX = Math.max(endX, Math.min(0, targetX));
+          const phaseProgress = clampedX / endX;
+          const timelineProgress = 0.38 + phaseProgress * 0.58;
+          snapPoints.push(timelineProgress);
+        });
 
-          cards.forEach((card) => {
-            const cardCenter = card.offsetLeft + card.clientWidth / 2;
-            const targetX = viewportWidth / 2 - cardCenter;
-            const clampedX = Math.max(endX, Math.min(startX, targetX));
-            const phaseProgress = (clampedX - startX) / (endX - startX);
-            const timelineProgress = 0.36 + phaseProgress * 0.52;
-            snapPoints.push(timelineProgress);
-          });
-
-          snapPoints.push(0.88); // Final project hold start
-          snapPoints.push(1.00); // Contact takeover end
-        } else {
-          const endX = -Math.max(0, track.scrollWidth - viewportWidth + viewportWidth * 0.08);
-
-          // Add base snap points
-          snapPoints.push(0);
-          snapPoints.push(0.16); // Cards entered
-
-          cards.forEach((card) => {
-            const cardCenter = card.offsetLeft + card.clientWidth / 2;
-            const targetX = viewportWidth / 2 - cardCenter;
-            const clampedX = Math.max(endX, Math.min(0, targetX));
-            const phaseProgress = clampedX / endX;
-            const timelineProgress = 0.38 + phaseProgress * 0.58;
-            snapPoints.push(timelineProgress);
-          });
-
-          snapPoints.push(0.88);
-          snapPoints.push(1.00);
-        }
+        snapPoints.push(0.88);
+        snapPoints.push(1.00);
 
         return Array.from(new Set(snapPoints))
           .map((p) => Math.min(1, Math.max(0, p)))
@@ -201,7 +175,7 @@ export function HomeExperience() {
         gsap.set(cards, { yPercent: 155, opacity: 1 });
         gsap.set(track, { x: 0 });
 
-        const snapPoints = calculateSnapPoints(false, track, cards);
+        const snapPoints = calculateSnapPoints(track, cards);
 
         const timeline = gsap.timeline({
           scrollTrigger: {
@@ -246,93 +220,70 @@ export function HomeExperience() {
 
         if (!track || !cards.length || !title || !sticky || !scene) return;
 
-        // Set initial state
+        const sidePadding = () => window.innerWidth * 0.08;
+        const trackWidth = () => {
+          const lastCard = cards.at(-1);
+          return lastCard ? lastCard.offsetLeft + lastCard.offsetWidth : track.scrollWidth;
+        };
+        const endX = () => window.innerWidth - trackWidth() - sidePadding();
+
         gsap.set(track, {
-          x: () => window.innerWidth,
-          y: 0,
+          x: () => window.innerWidth + sidePadding(),
+          yPercent: -50,
           opacity: 1
         });
         gsap.set(cards, { opacity: 1 });
         gsap.set(title, { scale: 1, y: 0, opacity: 1 });
 
-        // Calculate scroll distances dynamically on evaluation
         const getScrollDistance = () => {
           const viewportHeight = window.innerHeight;
           const viewportWidth = window.innerWidth;
           const introDistance = viewportHeight * 0.7;
-          const horizontalDistance = track.scrollWidth - viewportWidth;
-          const finalHoldDistance = viewportHeight * 0.4;
-          const handoffDistance = viewportHeight * 0.5;
-          return introDistance + horizontalDistance + finalHoldDistance + handoffDistance;
+          const horizontalDistance = Math.max(trackWidth() - viewportWidth + sidePadding() * 2, viewportWidth * 1.4);
+          const finalHoldDistance = viewportHeight * 0.55;
+          return introDistance + horizontalDistance + finalHoldDistance;
         };
 
-        // Set trigger parent scene height dynamically
         const updateSceneHeight = () => {
           scene.style.height = `${getScrollDistance() + window.innerHeight}px`;
         };
         updateSceneHeight();
 
-        const snapPoints = calculateSnapPoints(true, track, cards);
-
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: ".recent-work-scene",
             start: "top top",
-            end: () => `+=${getScrollDistance()}`,
-            scrub: 0.32, // Mobile scrub response (0.22 to 0.4)
-            pin: ".recent-work__sticky",
-            pinSpacing: true,
+            end: "bottom bottom",
+            scrub: 0.34,
             invalidateOnRefresh: true,
-            onRefresh: updateSceneHeight,
-            snap: {
-              snapTo: snapPoints,
-              delay: 0.12, // snap delay (0.08 to 0.14)
-              duration: { min: 0.14, max: 0.32 }, // snap duration (0.14 to 0.32)
-              ease: "power2.inOut",
-              inertia: false
-            }
+            onRefresh: updateSceneHeight
           }
         });
 
-        // Phase 1: Hold (0% to 12%)
-        timeline.to({}, { duration: 12 });
+        timeline
+          .to({}, { duration: 0.12 })
+          .to(title, {
+            scale: 0.76,
+            yPercent: -36,
+            opacity: 0.18,
+            ease: "none",
+            duration: 0.16
+          }, 0.12)
+          .to(track, {
+            x: sidePadding,
+            ease: "power3.out",
+            duration: 0.18
+          }, 0.18)
+          .to(track, {
+            x: endX,
+            ease: "none",
+            duration: 0.54
+          }, 0.34)
+          .to({}, { duration: 0.12 }, 0.88);
 
-        // Phase 2: Heading recedes (12% to 25%)
-        timeline.to(title, {
-          scale: 0.76,
-          y: "-5svh",
-          opacity: 0.22,
-          ease: "none",
-          duration: 13
-        }, 12);
-
-        // Phase 3: Cards enter from right (18% to 36%)
-        timeline.to(track, {
-          x: () => window.innerWidth * 0.08,
-          ease: "power2.out",
-          duration: 18
-        }, 18);
-
-        // Phase 4: Horizontal travel (36% to 88%)
-        timeline.to(track, {
-          x: () => {
-            const viewportWidth = window.innerWidth;
-            const horizontalTravel = track.scrollWidth - viewportWidth;
-            return -horizontalTravel;
-          },
-          ease: "none",
-          duration: 52
-        }, 36);
-
-        // Phase 5: Final card hold (88% to 92%)
-        timeline.to({}, { duration: 4 }, 88);
-
-        // Phase 6: Contact takeover (90% to 100%)
-        timeline.to(sticky, {
-          y: "-100vh",
-          ease: "none",
-          duration: 10
-        }, 90);
+        return () => {
+          scene.style.removeProperty("height");
+        };
       });
 
       ScrollTrigger.refresh();
