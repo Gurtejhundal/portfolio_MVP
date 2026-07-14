@@ -72,11 +72,6 @@ export const projects: Project[] = [
     coverAvailable: false,
     gallery: [
       { label: "Studio landing hero", kind: "image", src: "/images/projects/house-of-details/hero.jpg", alt: "House of Details studio landing page configuration interface", width: 1200, height: 1600, variant: "cover" },
-      { label: "Service chapters: Protection", kind: "image", src: "/images/projects/house-of-details/services.jpg", alt: "Ceramic coating and paint protection film services", width: 1200, height: 1600, variant: "detail" },
-      { label: "Close-up detailing care", kind: "image", src: "/images/projects/house-of-details/aftercare.jpg", alt: "Precision interior vacuuming and gloss treatment", width: 1200, height: 1600, variant: "detail" },
-      { label: "Proof before promises", kind: "image", src: "/images/projects/house-of-details/promises.jpg", alt: "Swirl removal and cabin refresh visual comparison", width: 1200, height: 1600, variant: "detail" },
-      { label: "Studio location and process", kind: "image", src: "/images/projects/house-of-details/process.jpg", alt: "Google Maps integration and step-by-step workflow", width: 1200, height: 1600, variant: "detail" },
-      { label: "FAQ and inspect booking", kind: "image", src: "/images/projects/house-of-details/faq.jpg", alt: "Frequently asked questions and inspection slot scheduling", width: 1200, height: 1600, variant: "detail" },
       { label: "Identity direction", kind: "artwork", variant: "cover" },
       { label: "Service architecture", kind: "artwork", variant: "system" },
       { label: "Responsive detail", kind: "artwork", variant: "detail" }
@@ -387,11 +382,6 @@ export const projects: Project[] = [
     coverAvailable: false,
     gallery: [
       { label: "Digital flagship landing", kind: "image", src: "/images/projects/sws-luxury/home_hero.jpg", alt: "SWS Luxury curated collection flagship home page", width: 1200, height: 1600, variant: "cover" },
-      { label: "Signature attars and perfumes", kind: "image", src: "/images/projects/sws-luxury/home_collection.jpg", alt: "Bespoke perfume and attar catalog collections", width: 1200, height: 1600, variant: "detail" },
-      { label: "WhatsApp ordering interface", kind: "image", src: "/images/projects/sws-luxury/home_ordering.jpg", alt: "WhatsApp concierge order scheduling features", width: 1200, height: 1600, variant: "detail" },
-      { label: "Amber Dusk Extrait details", kind: "image", src: "/images/projects/sws-luxury/detail_product.jpg", alt: "Premium product description page with ingredients and assistance", width: 1200, height: 1600, variant: "detail" },
-      { label: "Related fragrances pairing", kind: "image", src: "/images/projects/sws-luxury/detail_related.jpg", alt: "Suggested attar and jewelry matching pairings", width: 1200, height: 1600, variant: "detail" },
-      { label: "Concierge cart handoff", kind: "image", src: "/images/projects/sws-luxury/cart_review.jpg", alt: "Confirm items edit list before WhatsApp order submit", width: 1200, height: 1600, variant: "detail" },
       { label: "Luxury flagship room", kind: "artwork", variant: "cover" },
       { label: "Perfumes boutique", kind: "artwork", variant: "detail" }
     ],

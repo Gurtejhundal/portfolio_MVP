@@ -160,7 +160,7 @@ export function HomeExperience() {
               <h1 className="home-hero__title home-hero__title--rear" id="home-title">
                 <span className="home-hero__line home-hero__line--one"><span>Creative</span></span>
                 <span className="home-hero__line home-hero__line--two"><span>Developer</span></span>
-                <p className="home-hero__descriptor">ਗੁਰਤਜੇਬੀਰ ਸਿੰਘ &middot; Gurtejbir Singh</p>
+                <p className="home-hero__descriptor">ਗੁਰਤਜੇਬੀਰ ਸਿੰਘ <span className="descriptor-separator">&bull;</span> <span className="descriptor-english">Gurtejbir Singh</span></p>
               </h1>
               <div className="home-hero__portrait">
                 <Image
