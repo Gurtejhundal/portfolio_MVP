@@ -83,6 +83,7 @@ function ProjectDialog({ project, onClose, onExited }: { project: Project | null
       {project ? (
         <motion.div
           className="work-dialog-shell"
+          data-lenis-prevent
           role="dialog"
           aria-modal="true"
           aria-labelledby={`work-dialog-${project.slug}`}
@@ -111,6 +112,7 @@ function ProjectDialog({ project, onClose, onExited }: { project: Project | null
           <motion.div
             className="work-dialog"
             ref={panelRef}
+            data-lenis-prevent
             initial={{ y: reduceMotion ? 18 : "102%" }}
             animate={{ y: 0 }}
             exit={{ y: reduceMotion ? 18 : "102%" }}

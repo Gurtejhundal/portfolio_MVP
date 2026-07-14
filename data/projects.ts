@@ -72,9 +72,11 @@ export const projects: Project[] = [
     coverAvailable: false,
     gallery: [
       { label: "Studio landing hero", kind: "image", src: "/images/projects/house-of-details/hero.jpg", alt: "House of Details studio landing page configuration interface", width: 1200, height: 1600, variant: "cover" },
-      { label: "Identity direction", kind: "artwork", variant: "cover" },
-      { label: "Service architecture", kind: "artwork", variant: "system" },
-      { label: "Responsive detail", kind: "artwork", variant: "detail" }
+      { label: "Professional detailing services", kind: "image", src: "/images/projects/house-of-details/services.jpg", alt: "House of Details services presentation grid", width: 1200, height: 1600, variant: "system" },
+      { label: "Detailing process chapters", kind: "image", src: "/images/projects/house-of-details/process.jpg", alt: "House of Details process steps outline", width: 1200, height: 1600, variant: "system" },
+      { label: "Before/after paint quality proof", kind: "image", src: "/images/projects/house-of-details/promises.jpg", alt: "House of Details paint correction comparison evidence", width: 1200, height: 1600, variant: "detail" },
+      { label: "Detailing package list", kind: "image", src: "/images/projects/house-of-details/aftercare.jpg", alt: "House of Details care package options list", width: 1200, height: 1600, variant: "detail" },
+      { label: "Frequently asked questions", kind: "image", src: "/images/projects/house-of-details/faq.jpg", alt: "House of Details customer frequently asked questions grid", width: 1200, height: 1600, variant: "detail" }
     ],
     theme: { background: "#151615", foreground: "#f1efe9", accent: "#9ca7ad" },
     sections: [
@@ -331,8 +333,7 @@ export const projects: Project[] = [
     coverAvailable: false,
     gallery: [
       { label: "OpenIrrigate Alert blueprint", kind: "image", src: "/images/projects/ghost-engineer/alert_blueprint.jpg", alt: "Ghost Engineer OpenIrrigate Alert impact blueprint roadmap", width: 1200, height: 1600, variant: "cover" },
-      { label: "Ghost Engineer workspace", kind: "artwork", variant: "cover" },
-      { label: "Interactive 3D model", kind: "artwork", variant: "detail" }
+      { label: "Ghost Engineer workspace", kind: "image", src: "/images/projects/ghost-engineer/workspace.jpg", alt: "Ghost Engineer interactive developer workspace interface", width: 1200, height: 900, variant: "cover" }
     ],
     liveUrl: "https://ghost-engineer-psi.vercel.app/",
     repositoryUrl: "https://github.com/Gurtejhundal/Ghost-Engineer",
@@ -382,8 +383,11 @@ export const projects: Project[] = [
     coverAvailable: false,
     gallery: [
       { label: "Digital flagship landing", kind: "image", src: "/images/projects/sws-luxury/home_hero.jpg", alt: "SWS Luxury curated collection flagship home page", width: 1200, height: 1600, variant: "cover" },
-      { label: "Luxury flagship room", kind: "artwork", variant: "cover" },
-      { label: "Perfumes boutique", kind: "artwork", variant: "detail" }
+      { label: "Flagship experience", kind: "image", src: "/images/projects/sws-luxury/flagship.jpg", alt: "SWS Luxury flagship space overview", width: 1200, height: 900, variant: "cover" },
+      { label: "Curated collections", kind: "image", src: "/images/projects/sws-luxury/home_collection.jpg", alt: "SWS Luxury home page collection list", width: 1200, height: 1600, variant: "system" },
+      { label: "Perfume boutique detail", kind: "image", src: "/images/projects/sws-luxury/detail_product.jpg", alt: "SWS Luxury product detail page", width: 1200, height: 1600, variant: "detail" },
+      { label: "Concierge cart and checkout", kind: "image", src: "/images/projects/sws-luxury/cart_review.jpg", alt: "SWS Luxury cart and concierge ordering review", width: 1200, height: 1600, variant: "detail" },
+      { label: "Related selections", kind: "image", src: "/images/projects/sws-luxury/detail_related.jpg", alt: "SWS Luxury related perfume selections boutique", width: 1200, height: 1600, variant: "detail" }
     ],
     liveUrl: "https://luxury-taste.vercel.app/",
     repositoryUrl: "https://github.com/Gurtejhundal/luxury_taste",
