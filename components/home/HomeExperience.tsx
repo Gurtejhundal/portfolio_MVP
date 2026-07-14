@@ -92,7 +92,13 @@ export function HomeExperience() {
     gsap.registerPlugin(ScrollTrigger);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const context = gsap.context(() => {
+    let mmContext: any = null;
+
+    const setupGSAP = () => {
+      const mm = gsap.matchMedia();
+      mmContext = mm;
+
+      // Hero scale/fade parallax on scroll (Runs on all viewports)
       gsap.to(".home-hero-inner", {
         scale: 0.95,
         opacity: 0.74,
@@ -117,9 +123,22 @@ export function HomeExperience() {
         }
       });
 
-      const track = document.querySelector<HTMLElement>(".recent-work__track");
-      const cards = gsap.utils.toArray<HTMLElement>(".recent-card");
-      if (track && cards.length) {
+      // 1. DESKTOP: (min-width: 900px)
+      mm.add("(min-width: 900px)", () => {
+        const track = document.querySelector<HTMLElement>(".recent-work__track");
+        const cards = gsap.utils.toArray<HTMLElement>(".recent-card");
+        const title = document.querySelector<HTMLElement>(".recent-work__title");
+        const sticky = document.querySelector<HTMLElement>(".recent-work__sticky");
+        const scene = document.querySelector<HTMLElement>(".recent-work-scene");
+
+        if (track) gsap.set(track, { clearProps: "all" });
+        if (title) gsap.set(title, { clearProps: "all" });
+        if (cards.length) gsap.set(cards, { clearProps: "all" });
+        if (sticky) gsap.set(sticky, { clearProps: "all" });
+        if (scene) gsap.set(scene, { clearProps: "height" });
+
+        if (!track || !cards.length) return;
+
         gsap.set(cards, { yPercent: 155, opacity: 1 });
         gsap.set(track, { x: 0 });
         const timeline = gsap.timeline({
@@ -140,12 +159,160 @@ export function HomeExperience() {
             duration: 0.58
           }, 0.38)
           .to(cards, { yPercent: -8, opacity: 0.84, stagger: 0.012, ease: "none", duration: 0.12 }, 0.88);
-      }
-    }, rootRef);
+      });
 
-    ScrollTrigger.refresh();
+      // 2. MOBILE AND TABLET: (max-width: 899px)
+      mm.add("(max-width: 899px)", () => {
+        const track = document.querySelector<HTMLElement>(".recent-work__track");
+        const cards = gsap.utils.toArray<HTMLElement>(".recent-card");
+        const title = document.querySelector<HTMLElement>(".recent-work__title");
+        const sticky = document.querySelector<HTMLElement>(".recent-work__sticky");
+        const scene = document.querySelector<HTMLElement>(".recent-work-scene");
+
+        if (track) gsap.set(track, { clearProps: "all" });
+        if (title) gsap.set(title, { clearProps: "all" });
+        if (cards.length) gsap.set(cards, { clearProps: "all" });
+        if (sticky) gsap.set(sticky, { clearProps: "all" });
+        if (scene) gsap.set(scene, { clearProps: "height" });
+
+        if (!track || !cards.length || !title || !sticky || !scene) return;
+
+        // Set initial state
+        gsap.set(track, {
+          x: () => window.innerWidth * 0.85,
+          y: 110
+        });
+        gsap.set(cards, { opacity: 0.95 });
+        gsap.set(title, { scale: 1, y: 0, opacity: 1 });
+
+        // Calculate scroll distances dynamically on evaluation
+        const getScrollDistance = () => {
+          const viewportWidth = window.innerWidth;
+          const horizontalTravel = track.scrollWidth - viewportWidth;
+          const introDistance = window.innerHeight * 0.75;
+          const horizontalDistance = horizontalTravel + (viewportWidth * 0.85) + (viewportWidth * 0.08);
+          const finalHoldDistance = window.innerHeight * 0.45;
+          const handoffDistance = window.innerHeight * 0.55;
+          return introDistance + horizontalDistance + finalHoldDistance + handoffDistance;
+        };
+
+        // Set trigger parent scene height dynamically
+        const updateSceneHeight = () => {
+          scene.style.height = `${getScrollDistance() + window.innerHeight}px`;
+        };
+        updateSceneHeight();
+
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".recent-work-scene",
+            start: "top top",
+            end: () => `+=${getScrollDistance()}`,
+            scrub: 0.35, // Mobile scrub response
+            pin: ".recent-work__sticky",
+            pinSpacing: true,
+            invalidateOnRefresh: true,
+            onRefresh: updateSceneHeight
+          }
+        });
+
+        // Phase 1: Hold (0% to 12%)
+        timeline.to({}, { duration: 12 });
+
+        // Phase 2: Heading recedes (12% to 25%)
+        timeline.to(title, {
+          scale: 0.76,
+          y: "-6svh",
+          opacity: 0.22,
+          ease: "none",
+          duration: 13
+        }, 12);
+
+        // Phase 3: Cards rise (18% to 34%)
+        timeline.to(track, {
+          y: 0,
+          ease: "power2.out",
+          duration: 16
+        }, 18);
+
+        // Phase 4: Horizontal travel (30% to 88%)
+        timeline.to(track, {
+          x: () => {
+            const viewportWidth = window.innerWidth;
+            const horizontalTravel = track.scrollWidth - viewportWidth;
+            const finalPadding = viewportWidth * 0.08;
+            return -(horizontalTravel + finalPadding);
+          },
+          ease: "none",
+          duration: 58
+        }, 30);
+
+        // Phase 5: Final card hold (88% to 92%)
+        timeline.to({}, { duration: 4 }, 88);
+
+        // Phase 6: Contact takeover (90% to 100%)
+        timeline.to(sticky, {
+          y: "-100vh",
+          ease: "none",
+          duration: 10
+        }, 90);
+      });
+
+      ScrollTrigger.refresh();
+    };
+
+    // Load readiness helper
+    let active = true;
+    const loadAndSetup = async () => {
+      try {
+        if (typeof document !== "undefined") {
+          await document.fonts.ready;
+        }
+        const track = document.querySelector<HTMLElement>(".recent-work__track");
+        if (track) {
+          const images = Array.from(track.querySelectorAll("img"));
+          await Promise.all(
+            images.map((img) => {
+              if (img.complete) return Promise.resolve();
+              if (img.decode) {
+                return img.decode().catch(() => {});
+              }
+              return new Promise<void>((resolve) => {
+                img.onload = () => resolve();
+                img.onerror = () => resolve();
+              });
+            })
+          );
+        }
+      } catch (err) {
+        console.error("Layout preloading failed:", err);
+      }
+      if (active) {
+        requestAnimationFrame(() => {
+          setupGSAP();
+        });
+      }
+    };
+
+    loadAndSetup();
+
+    let resizeTimeout: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        if (mmContext) {
+          ScrollTrigger.refresh();
+        }
+      }, 250);
+    };
+    window.addEventListener("resize", handleResize);
+
     return () => {
-      context.revert();
+      active = false;
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(resizeTimeout);
+      if (mmContext) {
+        mmContext.revert();
+      }
     };
   }, []);
 
@@ -160,7 +327,7 @@ export function HomeExperience() {
               <h1 className="home-hero__title home-hero__title--rear" id="home-title">
                 <span className="home-hero__line home-hero__line--one"><span>Creative</span></span>
                 <span className="home-hero__line home-hero__line--two"><span>Developer</span></span>
-                <p className="home-hero__descriptor">ਗੁਰਤਜੇਬੀਰ ਸਿੰਘ <span className="descriptor-separator">&bull;</span> <span className="descriptor-english">Gurtejbir Singh</span></p>
+                <p className="home-hero__descriptor"><span className="descriptor-punjabi">ਗੁਰਤਜੇਬੀਰ ਸਿੰਘ</span> <span className="descriptor-separator">&bull;</span> <span className="descriptor-english">Gurtejbir Singh</span></p>
               </h1>
               <div className="home-hero__portrait">
                 <Image
@@ -170,6 +337,7 @@ export function HomeExperience() {
                   priority
                   sizes="(max-width: 760px) 92vw, 46vw"
                 />
+                <div className="grain-overlay" />
               </div>
 
               <a className="home-hero__scroll" href="#design-code" aria-label="Explore the portfolio">

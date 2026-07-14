@@ -245,6 +245,7 @@ export function ContactDepthScene({
                 sizes="(max-width: 560px) 108px, 150px"
               />
               <span className="contact-depth-scene__portrait-highlight" />
+              <span className="grain-overlay" />
             </span>
           </span>
         </div>
