@@ -2502,10 +2502,8 @@ img {
   --work-line: rgba(17, 17, 15, 0.16);
   --work-ease: cubic-bezier(0.76, 0, 0.24, 1);
   position: relative;
-  isolation: isolate;
   min-height: 100svh;
   padding-bottom: 0;
-  background: var(--work-ink);
   color: var(--work-ink);
   font-family: var(--font-home), Arial, sans-serif;
 }
