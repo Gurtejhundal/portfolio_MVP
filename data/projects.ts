@@ -123,9 +123,9 @@ export const projects: Project[] = [
     ],
     credits: ["Design and development — Gurtejbir Singh", "Project imagery — pending final approved assets"],
     mediaConfig: {
-      mediaMode: "portrait-stage",
+      mediaMode: "cover",
       objectPosition: "center center",
-      scale: 0.88,
+      scale: 1.0,
       cardRatio: "portrait",
       stageBackground: "#121413"
     }
@@ -268,9 +268,9 @@ export const projects: Project[] = [
     ],
     credits: ["Product strategy, interface and development — Gurtejbir Singh", "Product screenshots — Traqo working build"],
     mediaConfig: {
-      mediaMode: "portrait-stage",
+      mediaMode: "cover",
       objectPosition: "center center",
-      scale: 0.88,
+      scale: 1.0,
       cardRatio: "portrait",
       stageBackground: "#e7edf4"
     }
@@ -396,9 +396,9 @@ export const projects: Project[] = [
     ],
     credits: ["Design and development — Gurtejbir Singh", "3D Spline scene — Ghost Engineer open assets"],
     mediaConfig: {
-      mediaMode: "portrait-stage",
+      mediaMode: "cover",
       objectPosition: "center center",
-      scale: 0.88,
+      scale: 1.0,
       cardRatio: "portrait",
       stageBackground: "#000000"
     }

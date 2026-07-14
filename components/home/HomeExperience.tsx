@@ -151,43 +151,12 @@ export function HomeExperience() {
       /* ── Mobile: pinned horizontal carousel ── */
       media.add("(max-width: 899px)", () => {
         const scene = document.querySelector<HTMLElement>(".recent-work-scene");
-        const sticky = document.querySelector<HTMLElement>(".recent-work__sticky");
         const track = document.querySelector<HTMLElement>(".recent-work__track");
         const title = document.querySelector<HTMLElement>(".recent-work__title");
         const cards = gsap.utils.toArray<HTMLElement>(".recent-card");
-        if (!scene || !sticky || !track || !title || !cards.length) return;
+        if (!scene || !track || !title || !cards.length) return;
 
         const setupMobileTimeline = () => {
-          /* Remove static mobile overrides so GSAP can control layout */
-          scene.style.height = "";
-          scene.style.padding = "0";
-          sticky.style.position = "sticky";
-          sticky.style.top = "0";
-          sticky.style.height = "100svh";
-          sticky.style.overflow = "hidden";
-          track.style.position = "absolute";
-          track.style.top = "22vh";
-          track.style.left = "5vw";
-          track.style.display = "flex";
-          track.style.flexWrap = "nowrap";
-          track.style.width = "max-content";
-          track.style.height = "auto";
-          track.style.gap = "clamp(14px, 4vw, 22px)";
-          track.style.paddingRight = "10vw";
-          track.style.transform = "";
-          title.style.position = "absolute";
-          title.style.top = "50%";
-          title.style.left = "50%";
-          title.style.transform = "translate(-50%, -50%)";
-          title.style.margin = "0";
-
-          cards.forEach(card => {
-            card.style.flex = "0 0 auto";
-            card.style.width = "";
-            card.style.margin = "0";
-            card.style.transform = "";
-          });
-
           const horizontalTravel = Math.max(0, track.scrollWidth - window.innerWidth + window.innerWidth * 0.05);
           const introDistance = window.innerHeight * 0.5;
           const exitDistance = window.innerHeight * 0.35;
@@ -204,7 +173,7 @@ export function HomeExperience() {
               start: "top top",
               end: "bottom bottom",
               scrub: 0.5,
-              pin: false,
+              pin: false, // CSS position: sticky handles pin
               invalidateOnRefresh: true
             }
           });
@@ -282,10 +251,6 @@ export function HomeExperience() {
         return () => {
           window.removeEventListener("orientationchange", debouncedResize);
           clearTimeout(resizeTimer);
-          /* Clear inline styles on cleanup */
-          [scene, sticky, track, title, ...cards].forEach(el => {
-            if (el) el.removeAttribute("style");
-          });
         };
       });
     }, rootRef);

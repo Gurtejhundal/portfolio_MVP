@@ -6378,13 +6378,42 @@ body:has(.home-experience) .site-footer {
 
 @media (max-width: 899px) {
   .recent-work-scene {
-    overflow: hidden;
+    position: relative;
+    height: 380svh;
+    overflow: visible;
     border-radius: 24px 24px 0 0;
   }
 
+  .recent-work__sticky {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+  }
+
   .recent-work__title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
     font-size: clamp(3rem, 10vw, 5rem);
     white-space: nowrap;
+    text-align: center;
+  }
+
+  .recent-work__track {
+    position: absolute;
+    top: 22vh;
+    left: 5vw;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: clamp(14px, 4vw, 22px);
+    width: max-content;
+    height: auto;
+    padding-right: 10vw;
+    will-change: transform;
   }
 
   /* Mobile card widths — GSAP sets flex layout programmatically */
@@ -6395,6 +6424,7 @@ body:has(.home-experience) .site-footer {
   .recent-card--4,
   .recent-card--5,
   .recent-card--6 {
+    flex: 0 0 auto;
     width: clamp(240px, 75vw, 370px);
     margin-top: 0;
   }
