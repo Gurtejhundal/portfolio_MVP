@@ -5844,7 +5844,7 @@ body:has(.home-experience) .site-footer {
   }
 
   .home-hero__line--two {
-    padding-left: 28%;
+    padding-left: 34%;
   }
 
   .home-hero__portrait {
@@ -5854,8 +5854,9 @@ body:has(.home-experience) .site-footer {
   }
 
   .home-hero__descriptor {
-    top: 60%;
-    right: 1.5rem;
+    top: 104%;
+    left: 34%;
+    right: auto;
   }
 
   .design-code-scene {
@@ -6146,7 +6147,7 @@ body:has(.home-experience) .site-footer {
 .home-hero__line--two {
   z-index: 3;
   margin-top: 0.04em;
-  padding-left: 27%;
+  padding-left: 33%;
 }
 
 .home-hero__line--two > span {
@@ -6168,12 +6169,17 @@ body:has(.home-experience) .site-footer {
 }
 
 .home-hero__descriptor {
-  top: 53%;
+  position: absolute;
+  top: 104%;
+  left: 33%;
   right: auto;
-  left: 56%;
-  max-width: 290px;
-  font-size: clamp(1rem, 1.15vw, 1.2rem);
-  line-height: 1.25;
+  max-width: none;
+  font-family: 'BhuTuka Expanded One', serif;
+  font-size: clamp(0.95rem, 1.4vw, 1.75rem);
+  line-height: 1.1;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  color: var(--accent);
 }
 
 @media (min-width: 1600px) {
@@ -6186,7 +6192,7 @@ body:has(.home-experience) .site-footer {
   }
 
   .home-hero__descriptor {
-    font-size: min(1vw, 1.2rem);
+    font-size: clamp(0.95rem, 1.3vw, 1.75rem);
   }
 }
 
@@ -6259,7 +6265,7 @@ body:has(.home-experience) .site-footer {
   }
 
   .home-hero__line--two {
-    padding-left: 30%;
+    padding-left: 36%;
   }
 
   .home-hero__portrait {
@@ -6284,7 +6290,7 @@ body:has(.home-experience) .site-footer {
 
   .home-hero__line--two {
     margin-top: 0.04em;
-    padding-left: 32%;
+    padding-left: 38%;
   }
 
   .home-hero__portrait {
@@ -6299,10 +6305,10 @@ body:has(.home-experience) .site-footer {
   }
 
   .home-hero__descriptor {
-    top: 52%;
-    left: 57%;
-    max-width: 240px;
-    font-size: 1rem;
+    top: 104%;
+    left: 38%;
+    max-width: none;
+    font-size: clamp(0.85rem, 2.2vw, 1.25rem);
   }
 
   .contact-depth-scene__portrait-depth {
@@ -6389,14 +6395,13 @@ body:has(.home-experience) .site-footer {
   }
 
   .home-hero__descriptor {
-    display: block;
-    z-index: 4;
-    top: 34%;
-    right: 1.25rem;
+    position: absolute;
+    top: 104%;
+    right: 0;
     left: auto;
-    max-width: 155px;
-    font-size: 0.78rem;
-    line-height: 1.28;
+    max-width: none;
+    font-size: clamp(0.8rem, 3.2vw, 1.15rem);
+    line-height: 1.1;
   }
 
   .contact-depth-scene__portrait-depth {

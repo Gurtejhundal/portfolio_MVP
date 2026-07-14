@@ -163,7 +163,8 @@ export function HomeExperience() {
             <div className="home-hero-inner">
               <h1 className="home-hero__title home-hero__title--rear" id="home-title">
                 <span className="home-hero__line home-hero__line--one"><span>Creative</span></span>
-                <span className="home-hero__line home-hero__line--two"><span>developer</span></span>
+                <span className="home-hero__line home-hero__line--two"><span>Developer</span></span>
+                <p className="home-hero__descriptor">ਗੁਰਤਜੇਬੀਰ ਸਿੰਘ</p>
               </h1>
               <div className="home-hero__portrait">
                 <Image
@@ -174,16 +175,7 @@ export function HomeExperience() {
                   sizes="(max-width: 760px) 92vw, 46vw"
                 />
               </div>
-              <p className="home-hero__descriptor" style={{
-                fontFamily: "'BhuTuka Expanded One', serif",
-                fontWeight: 400,
-                fontSize: "clamp(1.3rem, 2.2vw, 2.7rem)",
-                lineHeight: 1.1,
-                letterSpacing: "0.02em",
-                color: "#78172f",
-                whiteSpace: "nowrap",
-                maxWidth: "none"
-              }}>ਗੁਰਤਜੇਬੀਰ ਸਿੰਘ</p>
+
               <a className="home-hero__scroll" href="#design-code" aria-label="Explore the portfolio">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M12 5v13M7.5 13.5 12 18l4.5-4.5" />
