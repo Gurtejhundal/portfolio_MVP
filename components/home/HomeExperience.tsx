@@ -249,19 +249,20 @@ export function HomeExperience() {
         // Set initial state
         gsap.set(track, {
           x: () => window.innerWidth * 0.85,
-          y: 110
+          y: 110,
+          opacity: 0.85
         });
         gsap.set(cards, { opacity: 0.95 });
         gsap.set(title, { scale: 1, y: 0, opacity: 1 });
 
         // Calculate scroll distances dynamically on evaluation
         const getScrollDistance = () => {
+          const viewportHeight = window.innerHeight;
           const viewportWidth = window.innerWidth;
-          const horizontalTravel = track.scrollWidth - viewportWidth;
-          const introDistance = window.innerHeight * 0.75;
-          const horizontalDistance = horizontalTravel + (viewportWidth * 0.85) + (viewportWidth * 0.08);
-          const finalHoldDistance = window.innerHeight * 0.45;
-          const handoffDistance = window.innerHeight * 0.55;
+          const introDistance = viewportHeight * 0.7;
+          const horizontalDistance = track.scrollWidth - viewportWidth;
+          const finalHoldDistance = viewportHeight * 0.4;
+          const handoffDistance = viewportHeight * 0.5;
           return introDistance + horizontalDistance + finalHoldDistance + handoffDistance;
         };
 
@@ -299,7 +300,7 @@ export function HomeExperience() {
         // Phase 2: Heading recedes (12% to 25%)
         timeline.to(title, {
           scale: 0.76,
-          y: "-6svh",
+          y: "-5svh",
           opacity: 0.22,
           ease: "none",
           duration: 13
@@ -308,6 +309,7 @@ export function HomeExperience() {
         // Phase 3: Cards rise (18% to 34%)
         timeline.to(track, {
           y: 0,
+          opacity: 1,
           ease: "power2.out",
           duration: 16
         }, 18);
@@ -317,8 +319,7 @@ export function HomeExperience() {
           x: () => {
             const viewportWidth = window.innerWidth;
             const horizontalTravel = track.scrollWidth - viewportWidth;
-            const finalPadding = viewportWidth * 0.08;
-            return -(horizontalTravel + finalPadding);
+            return -horizontalTravel;
           },
           ease: "none",
           duration: 58

@@ -5739,6 +5739,13 @@ body:has(.home-experience) .site-footer {
   opacity: 0.72;
 }
 
+.works-contact-sentinel {
+  position: relative;
+  z-index: 1;
+  height: 100svh;
+  pointer-events: none;
+}
+
 .works-contact-depth {
   z-index: 0;
 }
@@ -6622,6 +6629,27 @@ body:has(.home-experience) .site-footer {
 }
 
 @media (max-width: 767px) {
+  :root {
+    --display-hero: clamp(3.25rem, 13vw, 5rem);
+    --display-page: clamp(2.5rem, 10.5vw, 4rem);
+    --display-project: clamp(1.6rem, 7.5vw, 2.65rem);
+    --heading-lg: clamp(1.3rem, 5.8vw, 2rem);
+    --body-lg: clamp(0.95rem, 3.5vw, 1.05rem);
+    --section-space: clamp(4rem, 8vw, 5.2rem);
+    --page-padding: clamp(1.1rem, 5vw, 1.35rem);
+  }
+
+  body {
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, .home-hero-stage h1, .recent-work__title {
+    text-wrap: balance !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+  }
+
   .home-signature-link {
     top: 1rem;
     left: 1rem;
@@ -6629,12 +6657,20 @@ body:has(.home-experience) .site-footer {
   }
 
   .home-bottom-nav {
-    bottom: calc(0.85rem + env(safe-area-inset-bottom));
-    width: min(calc(100vw - 2.5rem), 310px);
+    bottom: calc(0.6rem + env(safe-area-inset-bottom));
+    max-width: calc(100vw - 32px);
+    width: auto;
+    padding: 5px 6px;
+    z-index: 500;
   }
 
   .home-bottom-nav a {
-    padding: 10px clamp(1rem, 4.4vw, 1.4rem);
+    padding: 6px clamp(16px, 4vw, 22px);
+    font-size: clamp(0.75rem, 3vw, 0.85rem);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .home-hero__title {
