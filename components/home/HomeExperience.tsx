@@ -98,7 +98,59 @@ export function HomeExperience() {
       const mm = gsap.matchMedia();
       mmContext = mm;
 
-      // Hero scale/fade parallax on scroll (Runs on all viewports)
+      // Project snap calculator based on real track measurements
+      const calculateSnapPoints = (isMobile: boolean, track: HTMLElement, cards: HTMLElement[]) => {
+        const viewportWidth = window.innerWidth;
+        const snapPoints: number[] = [];
+
+        if (isMobile) {
+          const startX = viewportWidth * 0.85;
+          const horizontalTravel = track.scrollWidth - viewportWidth;
+          const finalPadding = viewportWidth * 0.08;
+          const endX = -(horizontalTravel + finalPadding);
+
+          // Add base snap points
+          snapPoints.push(0);
+          snapPoints.push(0.12); // Heading recedes start
+          snapPoints.push(0.30); // Cards risen start
+
+          cards.forEach((card) => {
+            const cardCenter = card.offsetLeft + card.clientWidth / 2;
+            const targetX = viewportWidth / 2 - cardCenter;
+            const clampedX = Math.max(endX, Math.min(startX, targetX));
+            const phaseProgress = (clampedX - startX) / (endX - startX);
+            const timelineProgress = 0.30 + phaseProgress * 0.58;
+            snapPoints.push(timelineProgress);
+          });
+
+          snapPoints.push(0.88); // Final project hold start
+          snapPoints.push(1.00); // Contact takeover end
+        } else {
+          const endX = -Math.max(0, track.scrollWidth - viewportWidth + viewportWidth * 0.08);
+
+          // Add base snap points
+          snapPoints.push(0);
+          snapPoints.push(0.16); // Cards entered
+
+          cards.forEach((card) => {
+            const cardCenter = card.offsetLeft + card.clientWidth / 2;
+            const targetX = viewportWidth / 2 - cardCenter;
+            const clampedX = Math.max(endX, Math.min(0, targetX));
+            const phaseProgress = clampedX / endX;
+            const timelineProgress = 0.38 + phaseProgress * 0.58;
+            snapPoints.push(timelineProgress);
+          });
+
+          snapPoints.push(0.88);
+          snapPoints.push(1.00);
+        }
+
+        return Array.from(new Set(snapPoints))
+          .map((p) => Math.min(1, Math.max(0, p)))
+          .sort((a, b) => a - b);
+      };
+
+      // Hero scale/fade parallax on scroll with snap points (Runs on all viewports)
       gsap.to(".home-hero-inner", {
         scale: 0.95,
         opacity: 0.74,
@@ -108,7 +160,14 @@ export function HomeExperience() {
           trigger: ".home-hero-stage",
           start: "top top",
           end: "bottom top",
-          scrub: 1
+          scrub: 1,
+          snap: {
+            snapTo: [0, 0.5, 1.0],
+            delay: 0.08,
+            duration: { min: 0.16, max: 0.42 },
+            ease: "power2.inOut",
+            inertia: false
+          }
         }
       });
 
@@ -141,13 +200,23 @@ export function HomeExperience() {
 
         gsap.set(cards, { yPercent: 155, opacity: 1 });
         gsap.set(track, { x: 0 });
+
+        const snapPoints = calculateSnapPoints(false, track, cards);
+
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: ".recent-work-scene",
             start: "top top",
             end: "bottom bottom",
-            scrub: 1,
-            invalidateOnRefresh: true
+            scrub: 0.38,
+            invalidateOnRefresh: true,
+            snap: {
+              snapTo: snapPoints,
+              delay: 0.08,
+              duration: { min: 0.16, max: 0.42 },
+              ease: "power2.inOut",
+              inertia: false
+            }
           }
         });
         timeline
@@ -202,16 +271,25 @@ export function HomeExperience() {
         };
         updateSceneHeight();
 
+        const snapPoints = calculateSnapPoints(true, track, cards);
+
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: ".recent-work-scene",
             start: "top top",
             end: () => `+=${getScrollDistance()}`,
-            scrub: 0.35, // Mobile scrub response
+            scrub: 0.32, // Mobile scrub response (0.22 to 0.4)
             pin: ".recent-work__sticky",
             pinSpacing: true,
             invalidateOnRefresh: true,
-            onRefresh: updateSceneHeight
+            onRefresh: updateSceneHeight,
+            snap: {
+              snapTo: snapPoints,
+              delay: 0.12, // snap delay (0.08 to 0.14)
+              duration: { min: 0.14, max: 0.32 }, // snap duration (0.14 to 0.32)
+              ease: "power2.inOut",
+              inertia: false
+            }
           }
         });
 

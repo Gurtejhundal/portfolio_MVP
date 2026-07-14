@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Instrument_Sans, Instrument_Serif } from "next/font/google";
 import { RouteTransitionProvider } from "@/components/site/RouteTransitionProvider";
 import { SiteChrome } from "@/components/site/SiteChrome";
+import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -80,6 +81,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={`${geist.variable} ${instrumentSerif.variable} ${instrumentSans.variable}`}>
       <body>
+        <SmoothScroll />
         <RouteTransitionProvider>
           <a className="skip-link" href="#main-content">Skip to content</a>
           <SiteChrome />
