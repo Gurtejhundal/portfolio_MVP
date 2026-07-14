@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=BhuTuka+Expanded+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=BhuTuka+Expanded+One&family=Raleway:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -6030,15 +6030,7 @@ body:has(.home-experience) .site-footer {
     height: 63svh;
   }
 
-  .home-hero__descriptor {
-    display: none;
-  }
 
-  .home-hero__scroll {
-    bottom: 5.4rem;
-    width: 52px;
-    height: 52px;
-  }
 
   .design-code-scene {
     margin-top: -56svh;
@@ -6230,6 +6222,7 @@ body:has(.home-experience) .site-footer {
 
 .home-hero__descriptor {
   position: absolute;
+  z-index: 4;
   top: 104%;
   left: 33%;
   right: auto;
@@ -6250,12 +6243,12 @@ body:has(.home-experience) .site-footer {
 }
 
 .descriptor-english {
-  font-family: var(--font-sans), sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  font-size: 0.85em;
-  vertical-align: 0.04em;
+  font-size: 0.82em;
+  vertical-align: 0.06em;
   display: inline-block;
 }
 
@@ -6463,12 +6456,18 @@ body:has(.home-experience) .site-footer {
 
   .home-hero__descriptor {
     position: absolute;
+    z-index: 4;
     top: 104%;
     right: 0;
     left: auto;
     max-width: none;
     font-size: clamp(0.8rem, 3.2vw, 1.15rem);
     line-height: 1.1;
+    display: block !important;
+  }
+
+  .home-hero__scroll {
+    display: none !important;
   }
 
   .contact-depth-scene__portrait-depth {
