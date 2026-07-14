@@ -177,10 +177,12 @@ export function HomeExperience() {
               <p className="home-hero__descriptor" style={{
                 fontFamily: "'BhuTuka Expanded One', serif",
                 fontWeight: 400,
-                fontSize: "clamp(2.6rem, 3.8vw, 4.8rem)",
+                fontSize: "clamp(1.3rem, 2.2vw, 2.7rem)",
                 lineHeight: 1.1,
                 letterSpacing: "0.02em",
-                color: "#78172f"
+                color: "#78172f",
+                whiteSpace: "nowrap",
+                maxWidth: "none"
               }}>ਗੁਰਤਜੇਬੀਰ ਸਿੰਘ</p>
               <a className="home-hero__scroll" href="#design-code" aria-label="Explore the portfolio">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
