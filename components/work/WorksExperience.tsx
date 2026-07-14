@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { createPortal } from "react-dom";
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { ContactDepthScene } from "@/components/home/ContactDepthScene";
+import { site } from "@/data/site";
 import { featuredProjects, type Project } from "@/data/projects";
 import { ProjectVisual } from "./ProjectVisual";
 
@@ -213,9 +213,20 @@ export function WorksExperience() {
         </section>
       </div>
 
-      <div className="works-contact-sentinel" data-chrome-tone="dark" aria-hidden="true" />
-
-      <ContactDepthScene className="works-contact-depth" headingId="works-contact-title" revealTrigger=".works-contact-sentinel" />
+      <footer className="works-footer" data-chrome-tone="dark">
+        <div className="works-footer__inner">
+          <p className="works-footer__subtitle">Seen enough?</p>
+          <h2 className="works-footer__title">Let’s build something worth remembering.</h2>
+          <a className="works-footer__email" href={`mailto:${site.email}`}>
+            {site.email} ↗
+          </a>
+          <div className="works-footer__socials">
+            <a href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+            <a href={`mailto:${site.email}`}>Email ↗</a>
+          </div>
+          <span className="works-footer__year">© {site.year}</span>
+        </div>
+      </footer>
 
       <span className="works-view-cursor" ref={cursorRef} aria-hidden="true">View</span>
       <ProjectDialog project={activeProject} onClose={closeProject} onExited={restoreProjectTrigger} />
