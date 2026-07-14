@@ -104,22 +104,22 @@ export function HomeExperience() {
         const snapPoints: number[] = [];
 
         if (isMobile) {
-          const startX = viewportWidth * 0.85;
+          const startX = viewportWidth * 0.08;
           const horizontalTravel = track.scrollWidth - viewportWidth;
-          const finalPadding = viewportWidth * 0.08;
-          const endX = -(horizontalTravel + finalPadding);
+          const endX = -horizontalTravel;
 
           // Add base snap points
           snapPoints.push(0);
           snapPoints.push(0.12); // Heading recedes start
-          snapPoints.push(0.30); // Cards risen start
+          snapPoints.push(0.18); // Cards entry start
+          snapPoints.push(0.36); // Phase 4 start
 
           cards.forEach((card) => {
             const cardCenter = card.offsetLeft + card.clientWidth / 2;
             const targetX = viewportWidth / 2 - cardCenter;
             const clampedX = Math.max(endX, Math.min(startX, targetX));
             const phaseProgress = (clampedX - startX) / (endX - startX);
-            const timelineProgress = 0.30 + phaseProgress * 0.58;
+            const timelineProgress = 0.36 + phaseProgress * 0.52;
             snapPoints.push(timelineProgress);
           });
 
@@ -248,11 +248,11 @@ export function HomeExperience() {
 
         // Set initial state
         gsap.set(track, {
-          x: () => window.innerWidth * 0.85,
-          y: 110,
-          opacity: 0.85
+          x: () => window.innerWidth,
+          y: 0,
+          opacity: 1
         });
-        gsap.set(cards, { opacity: 0.95 });
+        gsap.set(cards, { opacity: 1 });
         gsap.set(title, { scale: 1, y: 0, opacity: 1 });
 
         // Calculate scroll distances dynamically on evaluation
@@ -306,15 +306,14 @@ export function HomeExperience() {
           duration: 13
         }, 12);
 
-        // Phase 3: Cards rise (18% to 34%)
+        // Phase 3: Cards enter from right (18% to 36%)
         timeline.to(track, {
-          y: 0,
-          opacity: 1,
+          x: () => window.innerWidth * 0.08,
           ease: "power2.out",
-          duration: 16
+          duration: 18
         }, 18);
 
-        // Phase 4: Horizontal travel (30% to 88%)
+        // Phase 4: Horizontal travel (36% to 88%)
         timeline.to(track, {
           x: () => {
             const viewportWidth = window.innerWidth;
@@ -322,8 +321,8 @@ export function HomeExperience() {
             return -horizontalTravel;
           },
           ease: "none",
-          duration: 58
-        }, 30);
+          duration: 52
+        }, 36);
 
         // Phase 5: Final card hold (88% to 92%)
         timeline.to({}, { duration: 4 }, 88);

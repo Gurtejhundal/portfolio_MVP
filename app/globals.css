@@ -6774,7 +6774,6 @@ body:has(.home-experience) .site-footer {
 
 /* Hide the dark contact scene during route transitions so it doesn't flash
    behind the incoming page content while opacity animates from 0 → 1. */
-[data-page-content][style*="opacity"] .contact-depth-scene,
 .is-route-transitioning .contact-depth-scene {
   visibility: hidden;
 }
