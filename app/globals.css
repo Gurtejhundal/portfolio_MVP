@@ -587,6 +587,7 @@ img {
   background: var(--project-bg);
   color: var(--project-fg);
   isolation: isolate;
+  container-type: inline-size;
 }
 
 .artwork-index {
@@ -790,7 +791,7 @@ img {
 }
 
 .mediaforge-rack i {
-  height: clamp(2.4rem, 7vw, 6rem);
+  height: clamp(1.2rem, 3.5vw, 2.5rem);
   border: 1px solid rgba(241, 234, 220, 0.26);
   background: rgba(241, 234, 220, 0.055);
 }
@@ -994,6 +995,46 @@ img {
   font-size: clamp(0.48rem, 0.7vw, 0.66rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+/* Portrait aspect ratios modifications for vertical cards (Card 1, 3, 5) */
+@container (max-width: 500px) {
+  .hod-mark {
+    font-size: clamp(1.8rem, 16cqw, 4.2rem);
+    top: 36%;
+    left: 8%;
+  }
+
+  .traqo-title {
+    font-size: clamp(2rem, 18cqw, 4.6rem);
+    top: 22%;
+    left: 8%;
+  }
+
+  .traqo-system {
+    width: 84%;
+    left: 8%;
+    right: 8%;
+  }
+
+  .traqo-system i {
+    height: clamp(1.2rem, 4.5vw, 2.5rem);
+  }
+
+  .ghost-title {
+    font-size: clamp(1.8rem, 16cqw, 4.2rem);
+    bottom: 16%;
+    left: 8%;
+  }
+
+  .ghost-symbol {
+    top: 22%;
+  }
+
+  .ghost-symbol i {
+    width: clamp(1.2rem, 4vw, 2.2rem);
+    height: clamp(1.2rem, 4vw, 2.2rem);
+  }
 }
 
 .selected-work {
