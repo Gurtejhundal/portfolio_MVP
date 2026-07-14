@@ -4083,6 +4083,8 @@ body:has(.home-experience) .site-footer {
 .recent-card--2 { width: min(41vw, 670px); }
 .recent-card--3 { width: min(28vw, 450px); }
 .recent-card--4 { width: min(34vw, 540px); }
+.recent-card--5 { width: min(30vw, 480px); }
+.recent-card--6 { width: min(36vw, 580px); }
 
 .recent-card__media {
   overflow: hidden;
@@ -4091,8 +4093,10 @@ body:has(.home-experience) .site-footer {
 }
 
 .recent-card--1 .recent-card__media,
-.recent-card--3 .recent-card__media { aspect-ratio: 4 / 5; }
-.recent-card--2 .recent-card__media { aspect-ratio: 16 / 10; }
+.recent-card--3 .recent-card__media,
+.recent-card--5 .recent-card__media { aspect-ratio: 4 / 5; }
+.recent-card--2 .recent-card__media,
+.recent-card--6 .recent-card__media { aspect-ratio: 16 / 10; }
 .recent-card--4 .recent-card__media { aspect-ratio: 1; }
 
 .recent-card__media .project-artwork {
@@ -4460,6 +4464,8 @@ body:has(.home-experience) .site-footer {
   .recent-card--2 { width: 48vw; }
   .recent-card--3 { width: 35vw; }
   .recent-card--4 { width: 40vw; }
+  .recent-card--5 { width: 36vw; }
+  .recent-card--6 { width: 42vw; }
 }
 
 @media (max-width: 899px) {
@@ -4623,7 +4629,9 @@ body:has(.home-experience) .site-footer {
   .recent-card--1,
   .recent-card--2,
   .recent-card--3,
-  .recent-card--4 {
+  .recent-card--4,
+  .recent-card--5,
+  .recent-card--6 {
     width: 100%;
     transform: none !important;
   }
@@ -5306,11 +5314,13 @@ body:has(.home-experience) .site-footer {
 }
 
 .recent-card--1 .recent-card__media,
-.recent-card--3 .recent-card__media {
+.recent-card--3 .recent-card__media,
+.recent-card--5 .recent-card__media {
   aspect-ratio: 4 / 5;
 }
 
-.recent-card--2 .recent-card__media {
+.recent-card--2 .recent-card__media,
+.recent-card--6 .recent-card__media {
   aspect-ratio: 16 / 10;
 }
 
@@ -6210,6 +6220,16 @@ body:has(.home-experience) .site-footer {
   margin-top: 5vh;
 }
 
+.recent-card--5 {
+  width: min(30vw, 480px);
+  margin-top: -1vh;
+}
+
+.recent-card--6 {
+  width: min(36vw, 580px);
+  margin-top: 6vh;
+}
+
 .recent-card__meta {
   grid-template-columns: minmax(8rem, 1.35fr) minmax(7rem, 1fr) auto auto;
   opacity: 0.68;
@@ -6309,7 +6329,9 @@ body:has(.home-experience) .site-footer {
   .recent-card--1,
   .recent-card--2,
   .recent-card--3,
-  .recent-card--4 {
+  .recent-card--4,
+  .recent-card--5,
+  .recent-card--6 {
     width: 100%;
     margin-top: 0;
   }
