@@ -90,9 +90,7 @@ export function HomeExperience() {
   useLayoutEffect(() => {
     if (!rootRef.current) return;
     gsap.registerPlugin(ScrollTrigger);
-
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reducedMotion) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const media = gsap.matchMedia();
     const context = gsap.context(() => {
@@ -120,7 +118,6 @@ export function HomeExperience() {
         }
       });
 
-      /* ── Desktop: pinned horizontal carousel ── */
       media.add("(min-width: 900px)", () => {
         const track = document.querySelector<HTMLElement>(".recent-work__track");
         const cards = gsap.utils.toArray<HTMLElement>(".recent-card");
@@ -146,112 +143,6 @@ export function HomeExperience() {
             duration: 0.58
           }, 0.38)
           .to(cards, { yPercent: -8, opacity: 0.84, stagger: 0.012, ease: "none", duration: 0.12 }, 0.88);
-      });
-
-      /* ── Mobile: pinned horizontal carousel ── */
-      media.add("(max-width: 899px)", () => {
-        const scene = document.querySelector<HTMLElement>(".recent-work-scene");
-        const track = document.querySelector<HTMLElement>(".recent-work__track");
-        const title = document.querySelector<HTMLElement>(".recent-work__title");
-        const cards = gsap.utils.toArray<HTMLElement>(".recent-card");
-        if (!scene || !track || !title || !cards.length) return;
-
-        const setupMobileTimeline = () => {
-          const horizontalTravel = Math.max(0, track.scrollWidth - window.innerWidth + window.innerWidth * 0.05);
-          const introDistance = window.innerHeight * 0.5;
-          const exitDistance = window.innerHeight * 0.35;
-          const totalScroll = horizontalTravel + introDistance + exitDistance;
-
-          scene.style.height = `${totalScroll + window.innerHeight}px`;
-
-          gsap.set(cards, { yPercent: 100, opacity: 0 });
-          gsap.set(track, { x: 0 });
-
-          const timeline = gsap.timeline({
-            scrollTrigger: {
-              trigger: scene,
-              start: "top top",
-              end: "bottom bottom",
-              scrub: 0.5,
-              pin: false, // CSS position: sticky handles pin
-              invalidateOnRefresh: true
-            }
-          });
-
-          /* Phase 1 — Heading shrinks */
-          timeline.to(title, {
-            scale: 0.74,
-            yPercent: -32,
-            opacity: 0.12,
-            ease: "none",
-            duration: 0.12
-          }, 0);
-
-          /* Phase 2 — Cards rise in */
-          timeline.to(cards, {
-            yPercent: 0,
-            opacity: 1,
-            stagger: 0.02,
-            ease: "power3.out",
-            duration: 0.16
-          }, 0.1);
-
-          /* Phase 3 — Horizontal movement */
-          timeline.to(track, {
-            x: -horizontalTravel,
-            ease: "none",
-            duration: 0.62
-          }, 0.26);
-
-          /* Phase 4 — Gentle exit for final cards */
-          timeline.to(cards, {
-            yPercent: -6,
-            opacity: 0.85,
-            stagger: 0.008,
-            ease: "none",
-            duration: 0.1
-          }, 0.88);
-        };
-
-        /* Wait for fonts and images before measuring */
-        const waitAndSetup = () => {
-          const images = track.querySelectorAll<HTMLImageElement>("img");
-          const imagePromises = Array.from(images).map(img =>
-            img.complete ? Promise.resolve() : new Promise<void>(resolve => {
-              img.addEventListener("load", () => resolve(), { once: true });
-              img.addEventListener("error", () => resolve(), { once: true });
-            })
-          );
-
-          Promise.all([document.fonts.ready, ...imagePromises]).then(() => {
-            setupMobileTimeline();
-            ScrollTrigger.refresh();
-          });
-        };
-
-        waitAndSetup();
-
-        /* Handle orientation changes */
-        const handleResize = () => {
-          ScrollTrigger.getAll().forEach(st => {
-            if (st.trigger === scene) st.kill();
-          });
-          /* Clear inline transforms */
-          gsap.set([track, title, ...cards], { clearProps: "all" });
-          waitAndSetup();
-        };
-
-        let resizeTimer: ReturnType<typeof setTimeout>;
-        const debouncedResize = () => {
-          clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(handleResize, 250);
-        };
-        window.addEventListener("orientationchange", debouncedResize);
-
-        return () => {
-          window.removeEventListener("orientationchange", debouncedResize);
-          clearTimeout(resizeTimer);
-        };
       });
     }, rootRef);
 
@@ -313,42 +204,14 @@ export function HomeExperience() {
           <div className="recent-work__sticky">
             <h2 className="recent-work__title" id="recent-work-title">Recent work</h2>
             <div className="recent-work__track">
-              {featuredProjects.map((project, index) => {
-                const config = project.mediaConfig || {
-                  mediaMode: "cover" as const,
-                  objectPosition: "center center",
-                  scale: 1.0,
-                  cardRatio: "landscape" as const,
-                  stageBackground: "var(--paper-secondary)"
-                };
-
-                const cardStyle = {
-                  "--card-ratio": config.cardRatio === "portrait" ? "0.72 / 1" : config.cardRatio === "square" ? "1 / 1" : "16 / 10",
-                  "--media-scale": config.scale ?? 1.0,
-                  "--media-x": config.objectPosition ? config.objectPosition.split(" ")[0] : "50%",
-                  "--media-y": config.objectPosition ? config.objectPosition.split(" ")[1] : "50%",
-                  "--stage-background": config.stageBackground ?? "var(--paper-secondary)"
-                } as React.CSSProperties;
-
-                return (
-                  <Link
-                    className={`recent-card recent-card--${index + 1}`}
-                    href={`/work/${project.slug}`}
-                    key={project.slug}
-                    style={cardStyle}
-                  >
-                    <div className="recent-card__media" data-fit={config.mediaMode}>
-                      <ProjectArtwork project={project} />
-                    </div>
-                    <div className="recent-card__meta">
-                      <strong>{project.title}</strong>
-                      <span>{project.category}</span>
-                      <span>{project.year}</span>
-                      <i aria-hidden="true">↗</i>
-                    </div>
-                  </Link>
-                );
-              })}
+              {featuredProjects.map((project, index) => (
+                <Link className={`recent-card recent-card--${index + 1}`} href={`/work/${project.slug}`} key={project.slug}>
+                  <div className="recent-card__media"><ProjectArtwork project={project} /></div>
+                  <div className="recent-card__meta">
+                    <strong>{project.title}</strong><span>{project.category}</span><span>{project.year}</span><i aria-hidden="true">↗</i>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </section>

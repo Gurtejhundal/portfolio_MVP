@@ -50,13 +50,6 @@ export interface Project {
   credits: string[];
   liveUrl?: string;
   repositoryUrl?: string;
-  mediaConfig?: {
-    mediaMode: "cover" | "contain" | "portrait-stage" | "landscape-stage" | "custom-crop";
-    objectPosition?: string;
-    scale?: number;
-    cardRatio?: "portrait" | "landscape" | "square" | "custom";
-    stageBackground?: string;
-  };
 }
 
 export const projects: Project[] = [
@@ -121,14 +114,7 @@ export const projects: Project[] = [
         ]
       }
     ],
-    credits: ["Design and development — Gurtejbir Singh", "Project imagery — pending final approved assets"],
-    mediaConfig: {
-      mediaMode: "cover",
-      objectPosition: "center center",
-      scale: 1.0,
-      cardRatio: "portrait",
-      stageBackground: "#121413"
-    }
+    credits: ["Design and development — Gurtejbir Singh", "Project imagery — pending final approved assets"]
   },
   {
     slug: "mediaforge",
@@ -194,14 +180,7 @@ export const projects: Project[] = [
         ]
       }
     ],
-    credits: ["Product design and development — Gurtejbir Singh", "Product screenshots — MediaForge working build"],
-    mediaConfig: {
-      mediaMode: "custom-crop",
-      objectPosition: "center center",
-      scale: 1.15,
-      cardRatio: "landscape",
-      stageBackground: "#171a16"
-    }
+    credits: ["Product design and development — Gurtejbir Singh", "Product screenshots — MediaForge working build"]
   },
   {
     slug: "traqo",
@@ -266,14 +245,7 @@ export const projects: Project[] = [
         ]
       }
     ],
-    credits: ["Product strategy, interface and development — Gurtejbir Singh", "Product screenshots — Traqo working build"],
-    mediaConfig: {
-      mediaMode: "cover",
-      objectPosition: "center center",
-      scale: 1.0,
-      cardRatio: "portrait",
-      stageBackground: "#e7edf4"
-    }
+    credits: ["Product strategy, interface and development — Gurtejbir Singh", "Product screenshots — Traqo working build"]
   },
   {
     slug: "bibi-kaulan-ji-hospital",
@@ -337,14 +309,7 @@ export const projects: Project[] = [
         ]
       }
     ],
-    credits: ["UX design and development — Gurtejbir Singh", "Hospital identity and content — pending publication approval"],
-    mediaConfig: {
-      mediaMode: "cover",
-      objectPosition: "center center",
-      scale: 1.0,
-      cardRatio: "square",
-      stageBackground: "#eef1ed"
-    }
+    credits: ["UX design and development — Gurtejbir Singh", "Hospital identity and content — pending publication approval"]
   },
   {
     slug: "ghost-engineer",
@@ -394,14 +359,7 @@ export const projects: Project[] = [
         ]
       }
     ],
-    credits: ["Design and development — Gurtejbir Singh", "3D Spline scene — Ghost Engineer open assets"],
-    mediaConfig: {
-      mediaMode: "cover",
-      objectPosition: "center center",
-      scale: 1.0,
-      cardRatio: "portrait",
-      stageBackground: "#000000"
-    }
+    credits: ["Design and development — Gurtejbir Singh", "3D Spline scene — Ghost Engineer open assets"]
   },
   {
     slug: "sws-luxury",
@@ -450,14 +408,7 @@ export const projects: Project[] = [
         ]
       }
     ],
-    credits: ["Brand direction and development — Gurtejbir Singh", "Product photography — SWS Luxury assets"],
-    mediaConfig: {
-      mediaMode: "cover",
-      objectPosition: "center center",
-      scale: 1.0,
-      cardRatio: "landscape",
-      stageBackground: "#faf6f0"
-    }
+    credits: ["Brand direction and development — Gurtejbir Singh", "Product photography — SWS Luxury assets"]
   },
   ...Array.from({ length: 2 }, (_, index): Project => ({
     slug: `future-project-${index + 7}`,
