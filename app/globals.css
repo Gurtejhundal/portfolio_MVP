@@ -7223,6 +7223,16 @@ body:has(.home-experience) .site-footer {
   padding: 0.06em 0.04em;
 }
 
+.contact-depth-scene__line-mask:nth-child(1) {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-depth-scene__line-mask:nth-child(2) {
+  position: relative;
+  z-index: 5;
+}
+
 .contact-depth-scene__line-reveal {
   display: block;
   transform: translateY(110%);
