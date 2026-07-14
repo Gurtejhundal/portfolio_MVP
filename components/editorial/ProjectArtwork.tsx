@@ -14,7 +14,7 @@ export function ProjectArtwork({ project }: { project: Project }) {
       {project.slug === "house-of-details" ? (
         <>
           <span className="artwork-index">H / 01</span>
-          <div className="hod-mark">DETAILS</div>
+          <div className="hod-mark">House of<br />Details</div>
           <div className="hod-line" />
           <p>Surface / Light / Precision</p>
         </>

@@ -71,6 +71,7 @@ export const projects: Project[] = [
     coverPath: "/images/projects/house-of-details/cover.webp",
     coverAvailable: false,
     gallery: [
+      { label: "Interactive customizer dashboard", kind: "image", src: "/images/projects/house-of-details/dashboard.jpg", alt: "House of Details custom configuration dashboard", width: 1600, height: 900, variant: "cover" },
       { label: "Identity direction", kind: "artwork", variant: "cover" },
       { label: "Service architecture", kind: "artwork", variant: "system" },
       { label: "Responsive detail", kind: "artwork", variant: "detail" }
@@ -329,6 +330,7 @@ export const projects: Project[] = [
     coverPath: "/images/projects/ghost-engineer/cover.webp",
     coverAvailable: false,
     gallery: [
+      { label: "Contributor workspace board", kind: "image", src: "/images/projects/ghost-engineer/workspace.jpg", alt: "Ghost Engineer platform workspace contributor hub", width: 1600, height: 900, variant: "cover" },
       { label: "Ghost Engineer workspace", kind: "artwork", variant: "cover" },
       { label: "Interactive 3D model", kind: "artwork", variant: "detail" }
     ],
@@ -379,6 +381,7 @@ export const projects: Project[] = [
     coverPath: "/images/projects/sws-luxury/cover.webp",
     coverAvailable: false,
     gallery: [
+      { label: "Digital flagship showroom", kind: "image", src: "/images/projects/sws-luxury/flagship.jpg", alt: "SWS Luxury attars and perfumes flagship showroom", width: 1600, height: 900, variant: "cover" },
       { label: "Luxury flagship room", kind: "artwork", variant: "cover" },
       { label: "Perfumes boutique", kind: "artwork", variant: "detail" }
     ],
