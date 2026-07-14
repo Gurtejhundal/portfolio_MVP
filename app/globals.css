@@ -6380,33 +6380,23 @@ body:has(.home-experience) .site-footer {
 
 @media (max-width: 899px) {
   .recent-work-scene {
-    height: auto;
-    padding: 8rem 1.25rem 10rem;
-  }
-
-  .recent-work__title {
-    margin-bottom: 5.5rem;
+    height: 430svh;
+    margin-top: -34px;
+    overflow: visible;
   }
 
   .recent-work__track {
-    gap: 5rem;
+    top: 22vh;
+    height: 60vh;
+    gap: 1.5rem;
   }
 
-  .recent-card,
-  .recent-card--1,
-  .recent-card--2,
-  .recent-card--3,
-  .recent-card--4,
-  .recent-card--5,
-  .recent-card--6 {
-    width: 100%;
-    margin-top: 0;
-  }
-
-  .recent-card:nth-child(even) {
-    width: 88%;
-    margin-left: auto;
-  }
+  .recent-card--1 { width: clamp(240px, 64vw, 360px); }
+  .recent-card--2 { width: clamp(300px, 80vw, 450px); margin-top: 7vh; }
+  .recent-card--3 { width: clamp(250px, 66vw, 370px); margin-top: -2vh; }
+  .recent-card--4 { width: clamp(280px, 74vw, 420px); margin-top: 5vh; }
+  .recent-card--5 { width: clamp(260px, 68vw, 380px); margin-top: -1vh; }
+  .recent-card--6 { width: clamp(290px, 76vw, 430px); margin-top: 6vh; }
 }
 
 @media (max-width: 767px) {

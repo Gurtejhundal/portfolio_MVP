@@ -92,7 +92,6 @@ export function HomeExperience() {
     gsap.registerPlugin(ScrollTrigger);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const media = gsap.matchMedia();
     const context = gsap.context(() => {
       gsap.to(".home-hero-inner", {
         scale: 0.95,
@@ -118,11 +117,9 @@ export function HomeExperience() {
         }
       });
 
-      media.add("(min-width: 900px)", () => {
-        const track = document.querySelector<HTMLElement>(".recent-work__track");
-        const cards = gsap.utils.toArray<HTMLElement>(".recent-card");
-        if (!track || !cards.length) return;
-
+      const track = document.querySelector<HTMLElement>(".recent-work__track");
+      const cards = gsap.utils.toArray<HTMLElement>(".recent-card");
+      if (track && cards.length) {
         gsap.set(cards, { yPercent: 155, opacity: 1 });
         gsap.set(track, { x: 0 });
         const timeline = gsap.timeline({
@@ -143,12 +140,11 @@ export function HomeExperience() {
             duration: 0.58
           }, 0.38)
           .to(cards, { yPercent: -8, opacity: 0.84, stagger: 0.012, ease: "none", duration: 0.12 }, 0.88);
-      });
+      }
     }, rootRef);
 
     ScrollTrigger.refresh();
     return () => {
-      media.revert();
       context.revert();
     };
   }, []);
@@ -164,7 +160,7 @@ export function HomeExperience() {
               <h1 className="home-hero__title home-hero__title--rear" id="home-title">
                 <span className="home-hero__line home-hero__line--one"><span>Creative</span></span>
                 <span className="home-hero__line home-hero__line--two"><span>Developer</span></span>
-                <p className="home-hero__descriptor">ਗੁਰਤਜੇਬੀਰ ਸਿੰਘ</p>
+                <p className="home-hero__descriptor">ਗੁਰਤਜੇਬੀਰ ਸਿੰਘ &middot; Gurtejbir Singh</p>
               </h1>
               <div className="home-hero__portrait">
                 <Image
