@@ -311,10 +311,109 @@ export const projects: Project[] = [
     ],
     credits: ["UX design and development — Gurtejbir Singh", "Hospital identity and content — pending publication approval"]
   },
-  ...Array.from({ length: 3 }, (_, index): Project => ({
-    slug: `future-project-${index + 5}`,
-    number: `0${index + 5}`,
-    title: `Future Project ${index + 5}`,
+  {
+    slug: "ghost-engineer",
+    number: "05",
+    title: "Ghost Engineer",
+    category: "Open-Source Impact Lab",
+    year: 2026,
+    services: ["Platform Architecture", "Frontend Development", "Interactive 3D"],
+    summary: "An open-source impact lab turning societal problems into buildable project blueprints.",
+    role: "Product design and full-stack development",
+    duration: "Ongoing",
+    stack: ["Next.js", "TypeScript", "Spline"],
+    layout: "wide-left",
+    status: "published",
+    featured: true,
+    projectStatus: "Working public build",
+    coverPath: "/images/projects/ghost-engineer/cover.webp",
+    coverAvailable: false,
+    gallery: [
+      { label: "Ghost Engineer workspace", kind: "artwork", variant: "cover" },
+      { label: "Interactive 3D model", kind: "artwork", variant: "detail" }
+    ],
+    liveUrl: "https://ghost-engineer-psi.vercel.app/",
+    repositoryUrl: "https://github.com/Gurtejhundal/Ghost-Engineer",
+    theme: { background: "#000000", foreground: "#ffffff", accent: "#00d1b2" },
+    sections: [
+      {
+        label: "Context",
+        title: "Turning societal problems into actionable software engineering blueprints.",
+        body: [
+          "Ghost Engineer is an open-source impact lab designed to help developers solve real-world problems by breaking down messy context into modular issues, file packs, and pilot launch checklists.",
+          "The workspace provides a problem-first contributor hub that skips standard landing friction."
+        ]
+      },
+      {
+        label: "Problem",
+        title: "Standard open-source contributions struggle to connect with localized needs.",
+        body: [
+          "Many developers want to write code for social good, but lack structured tasks, clear deployment parameters, and domain context. Traditional issue trackers rarely bridge this gap."
+        ]
+      },
+      {
+        label: "Strategy",
+        title: "Provide a complete launch blueprint with structured agent reviews.",
+        body: [
+          "Every problem undergoes a multi-agent review (Architect, Feasibility, PM, and Safety) resulting in a contributor board, a 7-day build path, and target impact scores. This ensures the project is ready for immediate deployment."
+        ]
+      }
+    ],
+    credits: ["Design and development — Gurtejbir Singh", "3D Spline scene — Ghost Engineer open assets"]
+  },
+  {
+    slug: "sws-luxury",
+    number: "06",
+    title: "SWS Luxury",
+    category: "Luxury Digital Flagship",
+    year: 2026,
+    services: ["Brand Strategy", "E-Commerce Design", "Concierge System"],
+    summary: "A luxury digital flagship for curated attars, imported perfumes, jewelry, and WhatsApp concierge ordering.",
+    role: "Brand design and full-stack development",
+    duration: "Ongoing",
+    stack: ["Next.js", "Tailwind CSS", "TypeScript"],
+    layout: "portrait-right",
+    status: "published",
+    featured: true,
+    projectStatus: "Working public build",
+    coverPath: "/images/projects/sws-luxury/cover.webp",
+    coverAvailable: false,
+    gallery: [
+      { label: "Luxury flagship room", kind: "artwork", variant: "cover" },
+      { label: "Perfumes boutique", kind: "artwork", variant: "detail" }
+    ],
+    liveUrl: "https://luxury-taste.vercel.app/",
+    repositoryUrl: "https://github.com/Gurtejhundal/luxury_taste",
+    theme: { background: "#faf6f0", foreground: "#3d2f20", accent: "#a77b2f" },
+    sections: [
+      {
+        label: "Context",
+        title: "An elegant web experience designed for curated products and concierge ordering.",
+        body: [
+          "SWS Luxury is a digital boutique for royal attars, selected jewelry, and curated gift-ready editions. It features a concierge model that integrates with a WhatsApp ordering system for premium, high-trust client service."
+        ]
+      },
+      {
+        label: "Problem",
+        title: "Standard e-commerce checkouts feel cold and mechanical for high-end boutique goods.",
+        body: [
+          "Curated attars and fine jewelry are bought with care. A generic shopping cart does not provide the guidance, personal touch, or custom gifting options that premium shoppers expect."
+        ]
+      },
+      {
+        label: "Strategy",
+        title: "Lead with editorial layouts, high-fidelity details, and a conversational bridge.",
+        body: [
+          "The site uses a sparse, gold-and-ivory palette with large serif typography. Concierge buttons are placed prominently, allowing the user to initiate a WhatsApp dialog with pre-filled product selections and concierge inquiries."
+        ]
+      }
+    ],
+    credits: ["Brand direction and development — Gurtejbir Singh", "Product photography — SWS Luxury assets"]
+  },
+  ...Array.from({ length: 2 }, (_, index): Project => ({
+    slug: `future-project-${index + 7}`,
+    number: `0${index + 7}`,
+    title: `Future Project ${index + 7}`,
     category: "Reserved",
     year: 2026,
     services: [],

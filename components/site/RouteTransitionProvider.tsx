@@ -1,6 +1,7 @@
 "use client";
 
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePathname, useRouter } from "next/navigation";
 import {
   createContext,
@@ -16,6 +17,7 @@ import {
 
 type RouteTheme = {
   curtain: string;
+  labelColor: string;
   reveal: "up" | "down";
 };
 
@@ -36,9 +38,9 @@ type RouteTransitionContextValue = {
 };
 
 const ROUTE_THEMES: Record<string, RouteTheme> = {
-  "/": { curtain: "#f1efe9", reveal: "down" },
-  "/work": { curtain: "#78172f", reveal: "up" },
-  "/about": { curtain: "#11110f", reveal: "up" }
+  "/": { curtain: "#f1efe9", labelColor: "#11110f", reveal: "down" },
+  "/work": { curtain: "#f1efe9", labelColor: "#11110f", reveal: "up" },
+  "/about": { curtain: "#f1efe9", labelColor: "#11110f", reveal: "up" }
 };
 
 const RouteTransitionContext = createContext<RouteTransitionContextValue | null>(null);
@@ -53,7 +55,7 @@ function routeTheme(pathname: string): RouteTheme {
   if (ROUTE_THEMES[normalized]) return ROUTE_THEMES[normalized];
   if (normalized.startsWith("/work/")) return ROUTE_THEMES["/work"];
   if (normalized.startsWith("/about/")) return ROUTE_THEMES["/about"];
-  return { curtain: "#11110f", reveal: "up" };
+  return { curtain: "#f1efe9", labelColor: "#11110f", reveal: "up" };
 }
 
 function routeLabel(pathname: string) {
@@ -66,6 +68,14 @@ function routeLabel(pathname: string) {
   return "Page";
 }
 
+function transitionLabel(pathname: string) {
+  const normalized = normalizePathname(pathname);
+  if (normalized === "/") return "HOME";
+  if (normalized === "/work" || normalized.startsWith("/work/")) return "WORKS";
+  if (normalized === "/about" || normalized.startsWith("/about/")) return "ABOUT";
+  return "PAGE";
+}
+
 export function useRouteTransition() {
   const value = useContext(RouteTransitionContext);
   if (!value) throw new Error("useRouteTransition must be used inside RouteTransitionProvider");
@@ -76,6 +86,7 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const curtainRef = useRef<HTMLDivElement>(null);
+  const curtainLabelRef = useRef<HTMLSpanElement>(null);
   const pendingRouteRef = useRef<PendingRoute | null>(null);
   const transitionLockedRef = useRef(false);
   const waitingForQuickInfoRef = useRef(false);
@@ -90,14 +101,13 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
   const [waitingForQuickInfo, setWaitingForQuickInfo] = useState(false);
 
   useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     const curtain = curtainRef.current;
     if (!curtain) return;
 
-    // The server style keeps the curtain below the viewport before hydration.
-    // Replace it with a single GSAP-owned translate so yPercent is not added to
-    // the existing 100% transform (which previously started the curtain at 200%).
     curtain.style.removeProperty("transform");
-    gsap.set(curtain, { yPercent: 100, force3D: true });
+    gsap.set(curtain, { display: "none", force3D: true });
   }, []);
 
   const setWaitingState = useCallback((waiting: boolean) => {
@@ -127,12 +137,27 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
   const finishTransition = useCallback(() => {
     const main = document.querySelector<HTMLElement>("[data-page-content]");
     const curtain = curtainRef.current;
+    const label = curtainLabelRef.current;
 
     if (curtain) {
-      gsap.set(curtain, { yPercent: 100, borderRadius: "32px 32px 0 0" });
+      gsap.set(curtain, {
+        display: "none",
+        maskImage: "none",
+        webkitMaskImage: "none",
+        left: 0,
+        top: 0,
+        width: 0,
+        height: 0,
+        borderRadius: "0px",
+        scale: 1,
+        pointerEvents: "none"
+      });
+    }
+    if (label) {
+      gsap.set(label, { x: 0, y: 0, scale: 1, opacity: 0 });
     }
     if (main) {
-      gsap.set(main, { clearProps: "transform,opacity" });
+      gsap.set(main, { clearProps: "transform,opacity,will-change,clip-path" });
     }
 
     transitionLockedRef.current = false;
@@ -143,12 +168,14 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
     setAnnouncement(`${routeLabel(window.location.pathname)} page loaded`);
 
     focusPageHeading();
+    ScrollTrigger.refresh();
   }, [focusPageHeading, unlockDocument]);
 
   const revealRoute = useCallback((pending: PendingRoute) => {
     const curtain = curtainRef.current;
+    const label = curtainLabelRef.current;
     const main = document.querySelector<HTMLElement>("[data-page-content]");
-    if (!main || !curtain) {
+    if (!main || !curtain || !label) {
       finishTransition();
       return;
     }
@@ -156,74 +183,112 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const mobile = window.matchMedia("(max-width: 768px)").matches;
     const isHome = pending.pathname === "/";
-    const label = isHome
-      ? null
-      : main.querySelector<HTMLElement>("[data-route-reveal='label'], .page-intro .section-label, .about-page__hero .section-label");
-    const heading = isHome
-      ? null
-      : main.querySelector<HTMLElement>("[data-route-reveal='heading'], h1");
-    const headingLines = isHome
-      ? []
-      : Array.from(main.querySelectorAll<HTMLElement>("[data-route-heading-line]"));
-    const supportingContent = isHome
-      ? []
-      : Array.from(main.querySelectorAll<HTMLElement>("[data-route-reveal='content']"));
 
-    gsap.killTweensOf([curtain, main, label, heading, ...headingLines, ...supportingContent].filter(Boolean));
+    const targetHeading = !isHome
+      ? document.getElementById(pending.pathname === "/work" ? "works-title" : "about-title")
+      : null;
+
+    gsap.killTweensOf([curtain, label, main]);
+
     gsap.set(main, {
-      scale: mobile ? 1.008 : 1.015,
-      y: mobile ? 8 : 14,
-      opacity: 0.86,
+      scale: 1,
+      y: 24,
+      opacity: 0,
       force3D: true
     });
 
     if (reduceMotion) {
-      gsap.set(curtain, { yPercent: 100 });
-      finishTransition();
+      gsap.set(curtain, { display: "none" });
+      gsap.set(main, { y: 0, opacity: 0 });
+      gsap.to(main, {
+        opacity: 1,
+        duration: 0.25,
+        onComplete: finishTransition
+      });
       return;
     }
 
-    if (label) gsap.set(label, { y: 18, opacity: 0 });
-    if (headingLines.length) gsap.set(headingLines, { yPercent: 110 });
-    else if (heading) gsap.set(heading, { y: 44, opacity: 0 });
-    if (supportingContent.length) gsap.set(supportingContent, { y: 28, opacity: 0 });
+    let deltaX = 0;
+    let deltaY = 0;
 
-    const revealDuration = mobile ? 0.58 : 0.7;
-    const timeline = gsap.timeline({ defaults: { ease: "power4.out" } });
-    timeline
-      .to(curtain, {
-        yPercent: pending.theme.reveal === "down" ? 101 : -101,
-        duration: revealDuration,
-        force3D: true,
-        ease: "power4.inOut"
-      }, 0)
-      .to(main, {
-        scale: 1,
-        y: 0,
+    if (targetHeading) {
+      gsap.set(targetHeading, { opacity: 0 });
+      const labelRect = label.getBoundingClientRect();
+      const targetRect = targetHeading.getBoundingClientRect();
+      deltaX = targetRect.left - labelRect.left;
+      deltaY = targetRect.top - labelRect.top;
+    } else if (isHome) {
+      deltaY = mobile ? -60 : -100;
+    }
+
+    const maskObj = { radius: 0 };
+    curtain.style.maskImage = `radial-gradient(circle, transparent 0%, black 0%)`;
+    curtain.style.webkitMaskImage = `radial-gradient(circle, transparent 0%, black 0%)`;
+
+    const durationMultiplier = mobile ? 0.8 : 1.0;
+    const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    timeline.to(maskObj, {
+      radius: 120,
+      duration: 0.65 * durationMultiplier,
+      ease: "power4.inOut",
+      onUpdate: () => {
+        curtain.style.maskImage = `radial-gradient(circle, transparent ${maskObj.radius}%, black ${maskObj.radius}%)`;
+        curtain.style.webkitMaskImage = `radial-gradient(circle, transparent ${maskObj.radius}%, black ${maskObj.radius}%)`;
+      }
+    }, 0);
+
+    timeline.to(label, {
+      x: deltaX,
+      y: deltaY,
+      opacity: 0,
+      duration: 0.5 * durationMultiplier,
+      ease: "power3.inOut"
+    }, 0.05);
+
+    timeline.to(main, {
+      y: 0,
+      opacity: 1,
+      duration: 0.55 * durationMultiplier,
+      force3D: true
+    }, 0.1);
+
+    if (targetHeading) {
+      timeline.to(targetHeading, {
         opacity: 1,
-        duration: mobile ? 0.58 : 0.78,
-        force3D: true
-      }, 0.06);
+        duration: 0.35 * durationMultiplier,
+        ease: "power3.out"
+      }, 0.4 * durationMultiplier);
+    }
 
-    if (label) timeline.to(label, { y: 0, opacity: 1, duration: 0.5 }, 0.08);
+    const labelElem = main.querySelector<HTMLElement>("[data-route-reveal='label'], .page-intro .section-label, .about-page__hero .section-label");
+    const headingLines = Array.from(main.querySelectorAll<HTMLElement>("[data-route-heading-line]"));
+    const supportingContent = Array.from(main.querySelectorAll<HTMLElement>("[data-route-reveal='content']"));
+
+    if (labelElem) {
+      gsap.set(labelElem, { y: 18, opacity: 0 });
+      timeline.to(labelElem, { y: 0, opacity: 1, duration: 0.45 }, 0.3 * durationMultiplier);
+    }
     if (headingLines.length) {
-      timeline.to(headingLines, { yPercent: 0, duration: mobile ? 0.58 : 0.72, stagger: 0.065 }, 0.1);
-    } else if (heading) {
-      timeline.to(heading, { y: 0, opacity: 1, duration: mobile ? 0.58 : 0.72 }, 0.1);
+      const headingLinesToAnimate = targetHeading
+        ? headingLines.filter(line => line !== targetHeading)
+        : headingLines;
+      gsap.set(headingLinesToAnimate, { yPercent: 110 });
+      timeline.to(headingLinesToAnimate, { yPercent: 0, duration: 0.58, stagger: 0.055 }, 0.35 * durationMultiplier);
     }
     if (supportingContent.length) {
-      timeline.to(supportingContent, { y: 0, opacity: 1, duration: 0.56, stagger: 0.055 }, 0.2);
+      gsap.set(supportingContent, { y: 24, opacity: 0 });
+      timeline.to(supportingContent, { y: 0, opacity: 1, duration: 0.5, stagger: 0.05 }, 0.4 * durationMultiplier);
     }
 
-    // Navigation is usable as soon as the curtain clears. Supporting content
-    // may keep settling without holding the document scroll lock.
-    timeline.call(finishTransition, [], revealDuration);
+    timeline.call(finishTransition, [], 0.65 * durationMultiplier);
   }, [finishTransition]);
 
   const coverAndNavigate = useCallback((pending: PendingRoute) => {
     const curtain = curtainRef.current;
+    const label = curtainLabelRef.current;
     const main = document.querySelector<HTMLElement>("[data-page-content]");
-    if (!main || !curtain) {
+    if (!main || !curtain || !label) {
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
       router.push(pending.href, { scroll: false });
       return;
@@ -237,31 +302,120 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
       router.push(pending.href, { scroll: false });
     };
 
-    gsap.killTweensOf([curtain, main]);
+    gsap.killTweensOf([curtain, label, main]);
+
     if (reduceMotion) {
-      gsap.to(main, { opacity: 0.82, duration: 0.16, ease: "power1.in", onComplete: changeRoute });
+      gsap.set(curtain, {
+        display: "block",
+        left: 0,
+        top: 0,
+        width: "100vw",
+        height: "100vh",
+        borderRadius: "0px",
+        backgroundColor: pending.theme.curtain,
+        opacity: 0
+      });
+      gsap.timeline({ onComplete: changeRoute })
+        .to(curtain, { opacity: 1, duration: 0.25 })
+        .to(main, { opacity: 0, duration: 0.25 }, 0);
       return;
     }
 
+    const activeLink = document.querySelector(`.home-bottom-nav a[aria-current="page"]`)
+      || document.querySelector(`.home-bottom-nav a[href="${pending.pathname}"]`)
+      || document.querySelector(`.home-bottom-nav a[href*="${pending.pathname}"]`);
+
+    let rect = { left: window.innerWidth / 2 - 40, top: window.innerHeight - 60, width: 80, height: 42 };
+    if (activeLink) {
+      const activeRect = activeLink.getBoundingClientRect();
+      rect = {
+        left: activeRect.left,
+        top: activeRect.top,
+        width: activeRect.width,
+        height: activeRect.height
+      };
+    }
+
+    const labelText = transitionLabel(pending.pathname);
+    const durationMultiplier = mobile ? 0.8 : 1.0;
+
     gsap.set(curtain, {
-      yPercent: 100,
-      borderRadius: "32px 32px 0 0",
-      backgroundColor: pending.theme.curtain
+      display: "grid",
+      left: rect.left,
+      top: rect.top,
+      width: rect.width,
+      height: rect.height,
+      borderRadius: `${rect.height / 2}px`,
+      backgroundColor: pending.theme.curtain,
+      opacity: 1,
+      pointerEvents: "auto",
+      maskImage: "none",
+      webkitMaskImage: "none"
     });
-    gsap.timeline({ defaults: { ease: "power4.inOut" }, onComplete: changeRoute })
+
+    gsap.set(label, {
+      innerText: labelText,
+      fontSize: "0.78rem",
+      fontWeight: "500",
+      letterSpacing: "-0.015em",
+      color: pending.theme.labelColor,
+      opacity: 1,
+      x: 0,
+      y: 0,
+      scale: 1
+    });
+
+    gsap.timeline({ defaults: { ease: "power3.inOut" } })
       .to(main, {
-        scale: mobile ? 0.985 : 0.965,
-        y: mobile ? -12 : -24,
-        opacity: mobile ? 0.8 : 0.72,
-        duration: mobile ? 0.48 : 0.62,
+        scale: 0.975,
+        y: -16,
+        opacity: 0.58,
+        clipPath: "inset(5% 4% round 26px)",
+        duration: 0.45 * durationMultiplier,
         force3D: true
-      }, 0)
-      .to(curtain, {
-        yPercent: 0,
-        borderRadius: 0,
-        duration: mobile ? 0.56 : 0.72,
-        force3D: true
-      }, mobile ? 0.02 : 0.05);
+      }, 0);
+
+    const timeline = gsap.timeline({
+      delay: 0.1 * durationMultiplier,
+      defaults: { ease: "power3.inOut" },
+      onComplete: changeRoute
+    });
+
+    const targetWidth = mobile ? "65vw" : "55vw";
+    const targetHeight = mobile ? "90px" : "120px";
+
+    timeline.to(curtain, {
+      scale: 1.04,
+      duration: 0.1 * durationMultiplier
+    }, 0);
+
+    timeline.to(curtain, {
+      left: `calc(50vw - (${targetWidth} / 2))`,
+      top: `calc(50vh - (${targetHeight} / 2))`,
+      width: targetWidth,
+      height: targetHeight,
+      borderRadius: "32px",
+      scale: 1,
+      duration: 0.28 * durationMultiplier
+    }, 0.1 * durationMultiplier);
+
+    const destFontSize = mobile ? "3.2rem" : "6.5rem";
+    timeline.to(label, {
+      fontSize: destFontSize,
+      letterSpacing: "-0.055em",
+      fontWeight: "400",
+      duration: 0.42 * durationMultiplier
+    }, 0.1 * durationMultiplier);
+
+    timeline.to(curtain, {
+      left: "-10vw",
+      top: "-10vh",
+      width: "120vw",
+      height: "120vh",
+      borderRadius: "0px",
+      duration: 0.32 * durationMultiplier
+    }, 0.38 * durationMultiplier);
+
   }, [lockDocument, router]);
 
   const notifyQuickInfoClosed = useCallback(() => {
@@ -322,6 +476,7 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
     const historyNavigation = previousPathnameRef.current !== pathname && !pending;
     previousPathnameRef.current = pathname;
     const frame = window.requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
       setAnnouncement(`${routeLabel(pathname)} page`);
       if (pending && normalizePathname(pathname) === pending.pathname) {
         revealRoute(pending);
@@ -338,7 +493,10 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
             duration: reduceMotion ? 0.16 : 0.46,
             ease: "power3.out",
             clearProps: "transform,opacity",
-            onComplete: focusPageHeading
+            onComplete: () => {
+              focusPageHeading();
+              ScrollTrigger.refresh();
+            }
           }
         );
       }
@@ -403,14 +561,33 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
         data-route-transition-curtain
         style={{
           position: "fixed",
-          inset: 0,
+          display: "none",
+          placeItems: "center",
           zIndex: 900,
           pointerEvents: "none",
-          transform: "translate3d(0, 100%, 0)",
+          left: 0,
+          top: 0,
+          width: 0,
+          height: 0,
+          borderRadius: "0px",
           background: curtainTheme.curtain,
-          willChange: "transform, border-radius"
+          willChange: "transform, width, height, top, left, border-radius",
+          overflow: "hidden"
         }}
-      />
+      >
+        <span
+          ref={curtainLabelRef}
+          className="route-curtain-label"
+          style={{
+            display: "inline-block",
+            fontFamily: "var(--font-home), Arial, sans-serif",
+            textTransform: "uppercase",
+            willChange: "transform, font-size, letter-spacing, font-weight, color",
+            whiteSpace: "nowrap",
+            textAlign: "center"
+          }}
+        />
+      </div>
       <div className="sr-only" aria-live="polite" aria-atomic="true">{announcement}</div>
     </RouteTransitionContext.Provider>
   );

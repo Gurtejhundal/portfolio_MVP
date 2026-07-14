@@ -31,21 +31,62 @@ export function ContactDepthScene({
     const section = sectionRef.current;
     if (!section) return;
 
-    const revealElement = revealTrigger
-      ? document.querySelector<HTMLElement>(revealTrigger)
-      : section;
+    let revealElement: HTMLElement | null = null;
+    if (revealTrigger) {
+      const pageWrapper = section.closest("[data-page-content], .home-experience, .works-page, .about-v2");
+      if (pageWrapper) {
+        revealElement = pageWrapper.querySelector<HTMLElement>(revealTrigger);
+      }
+      if (!revealElement) {
+        revealElement = document.querySelector<HTMLElement>(revealTrigger);
+      }
+    } else {
+      revealElement = section;
+    }
+
+    console.log("[ContactDepthScene] init revealTrigger:", revealTrigger, "resolved element:", revealElement);
 
     if (!revealElement) {
+      console.log("[ContactDepthScene] No reveal element found. Adding is-visible immediately.");
       section.classList.add("is-visible");
       return;
     }
 
     const observer = new IntersectionObserver((entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) section.classList.add("is-visible");
-    }, { threshold: 0.12 });
+      entries.forEach((entry) => {
+        console.log("[ContactDepthScene] IntersectionObserver callback. intersecting:", entry.isIntersecting, "ratio:", entry.intersectionRatio);
+        if (entry.isIntersecting) {
+          section.classList.add("is-visible");
+        }
+      });
+    }, { threshold: 0 });
 
     observer.observe(revealElement);
-    return () => observer.disconnect();
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight;
+      const winHeight = window.innerHeight;
+      console.log("[ContactDepthScene] scroll check. Y:", scrollY, "DocHeight:", docHeight, "WinHeight:", winHeight);
+      if (scrollY + winHeight >= docHeight - 50) {
+        console.log("[ContactDepthScene] Scroll fallback trigger adding is-visible.");
+        section.classList.add("is-visible");
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    const timer = setTimeout(() => {
+      console.log("[ContactDepthScene] Timer fallback (1000ms) adding is-visible.");
+      section.classList.add("is-visible");
+    }, 1000);
+
+    return () => {
+      console.log("[ContactDepthScene] cleanup hook for revealTrigger:", revealTrigger);
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(timer);
+    };
   }, [revealTrigger]);
 
   useEffect(() => {
@@ -75,9 +116,16 @@ export function ContactDepthScene({
     };
 
     if (!finePointer) {
-      const source = revealTrigger
-        ? document.querySelector<HTMLElement>(revealTrigger)
-        : section;
+      let source: HTMLElement | null = null;
+      if (revealTrigger) {
+        const pageWrapper = section.closest("[data-page-content], .home-experience, .works-page, .about-v2");
+        source = pageWrapper
+          ? pageWrapper.querySelector<HTMLElement>(revealTrigger)
+          : document.querySelector<HTMLElement>(revealTrigger);
+      } else {
+        source = section;
+      }
+      if (!source) source = section;
       let frame = 0;
 
       const updateScrollDepth = () => {

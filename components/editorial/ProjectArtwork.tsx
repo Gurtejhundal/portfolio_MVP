@@ -49,6 +49,24 @@ export function ProjectArtwork({ project }: { project: Project }) {
           <div className="hospital-services"><span>OPD</span><span>Doctors</span><span>Appointments</span></div>
         </>
       ) : null}
+
+      {project.slug === "ghost-engineer" ? (
+        <>
+          <span className="artwork-index">GE / IMPACT / 05</span>
+          <div className="ghost-symbol"><i /><i /><i /></div>
+          <div className="ghost-title">Ghost<br />Engineer</div>
+          <p>Fork code. Build impact.</p>
+        </>
+      ) : null}
+
+      {project.slug === "sws-luxury" ? (
+        <>
+          <span className="artwork-index">SWS / FLAGSHIP / 06</span>
+          <div className="sws-symbol">SWS</div>
+          <div className="sws-title">Luxury</div>
+          <div className="sws-services"><span>Attars</span><span>Perfumes</span><span>Jewelry</span></div>
+        </>
+      ) : null}
     </div>
   );
 }

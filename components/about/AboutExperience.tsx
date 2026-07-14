@@ -32,6 +32,62 @@ const principles = [
   "Honest work lasts longer."
 ];
 
+const designCards = [
+  {
+    type: "index",
+    label: "GS / 26",
+    title: "DESIGN\nBECOMES\nSYSTEM",
+    sub: "Punjab · India"
+  },
+  {
+    type: "system",
+    label: "COMPONENT / 12",
+    title: "Structure\nbefore surface."
+  },
+  {
+    type: "statement",
+    label: "METHOD / 03",
+    title: "Think.\nShape.\nShip.",
+    sub: "No handoff gap."
+  },
+  {
+    type: "stack",
+    label: "STACK / 08",
+    title: "React\nNext.js\nTS",
+    sub: "Built to perform."
+  },
+  {
+    type: "code",
+    label: "CODE / 07",
+    title: "Clean props.\nZero blur.",
+    sub: "Restrained motion."
+  },
+  {
+    type: "focus",
+    label: "FOCUS / 02",
+    title: "Interface\n& Interaction",
+    sub: "Details matter."
+  },
+  {
+    type: "type",
+    label: "TYPE / 04",
+    title: "Contrast\n& Hierarchy",
+    sub: "Read readability."
+  },
+  {
+    type: "value",
+    label: "VALUE / 09",
+    title: "Function\nis premium.",
+    sub: "Honest work."
+  },
+  {
+    type: "pilot",
+    label: "PILOT / 01",
+    title: "Launch\nto test.",
+    sub: "Real impact."
+  }
+];
+
 export function AboutExperience() {
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -65,19 +121,6 @@ export function AboutExperience() {
           scrub: 1
         }
       });
-
-      media.add("(min-width: 901px)", () => {
-        gsap.to(".about-v2__fragments-track", {
-          xPercent: -5,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".about-v2__intro",
-            start: "32% top",
-            end: "bottom top",
-            scrub: 1
-          }
-        });
-      });
     }, rootRef);
 
     return () => {
@@ -99,45 +142,35 @@ export function AboutExperience() {
           <p className="about-v2__intro-note" data-route-reveal="content">Design · Development · Motion</p>
         </div>
 
-        <div className="about-v2__fragments" data-route-reveal="content" aria-label="Selected fragments from the work">
+        <div className="about-v2__fragments-marquee" data-route-reveal="content" aria-label="Selected fragments from the work">
           <div className="about-v2__fragments-track">
-            <article className="about-v2__fragment about-v2__fragment--index" aria-label="Gurtejbir identity card">
-              <span>GS / 26</span>
-              <strong>DESIGN<br />BECOMES<br />SYSTEM</strong>
-              <small>Punjab · India</small>
-            </article>
-
-            <Link className="about-v2__fragment about-v2__fragment--image" href="/work/mediaforge" aria-label="View MediaForge project">
-              <Image
-                src="/images/projects/mediaforge/overview.webp"
-                alt="MediaForge local-first media operations interface"
-                fill
-                sizes="(max-width: 760px) 78vw, 28vw"
-              />
-              <span>MediaForge / 02</span>
-            </Link>
-
-            <article className="about-v2__fragment about-v2__fragment--system" aria-label="Interface system study">
-              <span>COMPONENT / 12</span>
-              <div><i /><i /><i /><i /><i /><i /></div>
-              <strong>Structure<br />before surface.</strong>
-            </article>
-
-            <Link className="about-v2__fragment about-v2__fragment--hospital" href="/work/bibi-kaulan-ji-hospital" aria-label="View Bibi Kaulan Ji Hospital project">
-              <Image
-                src="/images/projects/bibi-kaulan-ji-hospital/live-home.png"
-                alt="Bibi Kaulan Ji Hospital website"
-                fill
-                sizes="(max-width: 760px) 78vw, 28vw"
-              />
-              <span>BKJH / 04</span>
-            </Link>
-
-            <article className="about-v2__fragment about-v2__fragment--statement" aria-label="Working principle">
-              <span>METHOD / 03</span>
-              <strong>Think.<br />Shape.<br />Ship.</strong>
-              <small>No handoff gap.</small>
-            </article>
+            {[...designCards, ...designCards].map((card, idx) => {
+              if (card.type === "system") {
+                return (
+                  <article className="about-v2__fragment about-v2__fragment--system" key={idx} aria-label={card.label}>
+                    <span>{card.label}</span>
+                    <div><i /><i /><i /><i /><i /><i /></div>
+                    <strong style={{ whiteSpace: "pre-line" }}>{card.title}</strong>
+                  </article>
+                );
+              }
+              if (card.type === "statement") {
+                return (
+                  <article className="about-v2__fragment about-v2__fragment--statement" key={idx} aria-label={card.label}>
+                    <span>{card.label}</span>
+                    <strong style={{ whiteSpace: "pre-line" }}>{card.title}</strong>
+                    {card.sub ? <small>{card.sub}</small> : null}
+                  </article>
+                );
+              }
+              return (
+                <article className={`about-v2__fragment about-v2__fragment--index about-v2__fragment--${card.type}`} key={idx} aria-label={card.label}>
+                  <span>{card.label}</span>
+                  <strong style={{ whiteSpace: "pre-line" }}>{card.title}</strong>
+                  {card.sub ? <small>{card.sub}</small> : null}
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

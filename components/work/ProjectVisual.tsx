@@ -9,17 +9,11 @@ type ProjectVisualProps = {
 };
 
 export function ProjectVisual({ project, media, mode }: ProjectVisualProps) {
+  if (mode === "card") {
+    return <ProjectArtwork project={project} />;
+  }
+
   if (media?.kind === "image" && media.src && media.width && media.height) {
-    if (mode === "card") {
-      return (
-        <Image
-          src={media.src}
-          alt=""
-          fill
-          sizes="(max-width: 760px) 92vw, (max-width: 1200px) 58vw, 46vw"
-        />
-      );
-    }
 
     const variant = media.variant ?? "cover";
 
@@ -47,10 +41,6 @@ export function ProjectVisual({ project, media, mode }: ProjectVisualProps) {
         <figcaption>{media.label}</figcaption>
       </figure>
     );
-  }
-
-  if (mode === "card") {
-    return <ProjectArtwork project={project} />;
   }
 
   return (
