@@ -196,7 +196,7 @@ export function HomeExperience() {
 
         <section className="recent-work-scene" id="recent-work" data-chrome-tone="light" aria-labelledby="recent-work-title">
           <div className="recent-work__sticky">
-            <h2 className="recent-work__title" id="recent-work-title">Recent work</h2>
+            <h2 className="recent-work__title" id="recent-work-title">Recent works</h2>
             <div className="recent-work__track">
               {featuredProjects.map((project, index) => (
                 <Link className={`recent-card recent-card--${index + 1}`} href={`/work/${project.slug}`} key={project.slug}>

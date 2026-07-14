@@ -4051,7 +4051,7 @@ body:has(.home-experience) .site-footer {
   top: 50%;
   left: 50%;
   width: 100%;
-  font-size: clamp(3.5rem, 7vw, 8rem);
+  font-size: clamp(2.6rem, 4.2vw, 4.4rem);
   font-weight: 400;
   letter-spacing: -0.055em;
   line-height: 0.9;
@@ -5278,7 +5278,7 @@ body:has(.home-experience) .site-footer {
   top: 50%;
   left: 50%;
   margin: 0;
-  font-size: clamp(3.2rem, 5.8vw, 6.3rem);
+  font-size: clamp(2.6rem, 4.2vw, 4.4rem);
   font-weight: 400;
   letter-spacing: -0.058em;
   line-height: 0.9;
@@ -5405,6 +5405,7 @@ body:has(.home-experience) .site-footer {
   opacity: 0;
   transform: translateY(34px);
   transition: opacity 780ms var(--home-ease), transform 880ms var(--home-ease);
+  text-align: center;
 }
 
 .contact-depth-scene.is-visible .contact-depth-scene__heading {
@@ -5421,6 +5422,11 @@ body:has(.home-experience) .site-footer {
 .contact-depth-scene__light,
 .contact-depth-scene__wine {
   will-change: transform;
+}
+
+.contact-depth-scene__light {
+  position: relative;
+  z-index: 1;
 }
 
 .contact-depth-scene__wine-stage {
@@ -5440,34 +5446,34 @@ body:has(.home-experience) .site-footer {
 .contact-depth-scene__wine--rear {
   position: relative;
   z-index: 1;
-  justify-self: end;
+  justify-self: center;
 }
 
 .contact-depth-scene__wine--front {
   position: relative;
   z-index: 5;
-  justify-self: end;
-  clip-path: polygon(0 0, 100% 0, 100% 38%, 0 58%);
+  justify-self: center;
+  clip-path: none;
   pointer-events: none;
 }
 
 .contact-depth-scene__portrait-depth {
   position: absolute;
   z-index: 3;
-  top: 47%;
-  left: clamp(6.5rem, 22vw, 21rem);
-  width: clamp(104px, 8vw, 150px);
+  top: 40%;
+  left: 50%;
+  width: clamp(110px, 12vw, 170px);
   aspect-ratio: 1;
   opacity: 0;
   perspective: 1000px;
-  transform: scale(0.88);
+  transform: translate(-50%, -50%) scale(0.88);
   transform-style: preserve-3d;
   transition: opacity 720ms 180ms var(--home-ease), transform 820ms 180ms var(--home-ease);
 }
 
 .contact-depth-scene.is-visible .contact-depth-scene__portrait-depth {
   opacity: 1;
-  transform: scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .contact-depth-scene__portrait-shadow,
@@ -5933,7 +5939,11 @@ body:has(.home-experience) .site-footer {
   }
 
   .contact-depth-scene__portrait-depth {
-    left: clamp(4rem, 18vw, 10rem);
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.88);
+  }
+  .contact-depth-scene.is-visible .contact-depth-scene__portrait-depth {
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
@@ -6039,15 +6049,16 @@ body:has(.home-experience) .site-footer {
 
   .contact-depth-scene__wine--rear,
   .contact-depth-scene__wine--front {
-    justify-self: start;
-    padding-left: 8%;
+    justify-self: center;
+    padding-left: 0;
   }
 
   .contact-depth-scene__portrait-depth {
-    top: 49%;
-    right: 4%;
-    left: auto;
-    width: clamp(78px, 22vw, 108px);
+    top: 40%;
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, -50%);
+    width: clamp(80px, 20vw, 110px);
   }
 
   .contact-depth-scene__email {
@@ -6405,10 +6416,11 @@ body:has(.home-experience) .site-footer {
   }
 
   .contact-depth-scene__portrait-depth {
-    top: 0;
+    top: 40%;
+    left: 50%;
     right: auto;
-    left: 62%;
-    width: clamp(76px, 22vw, 86px);
+    transform: translate(-50%, -50%);
+    width: clamp(80px, 18vw, 100px);
   }
 }
 

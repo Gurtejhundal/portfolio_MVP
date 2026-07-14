@@ -215,19 +215,19 @@ export function ContactDepthScene({
           <h2 id={headingId} className="contact-depth-scene__heading">
             <span className="contact-depth-scene__line-mask">
               <span className="contact-depth-scene__line-reveal">
-                <span className="contact-depth-scene__light" ref={lightTextRef}>Let&apos;s make</span>
+                <span className="contact-depth-scene__light" ref={lightTextRef}>Let&apos;s work</span>
               </span>
             </span>
             <span className="contact-depth-scene__line-mask">
               <span className="contact-depth-scene__line-reveal">
                 <span className="contact-depth-scene__wine-stage">
-                  <span className="contact-depth-scene__wine contact-depth-scene__wine--rear" ref={wineRearRef}>something lasting.</span>
+                  <span className="contact-depth-scene__wine contact-depth-scene__wine--rear" ref={wineRearRef}>together.</span>
                   <span
                     className="contact-depth-scene__wine contact-depth-scene__wine--front"
                     ref={wineFrontRef}
                     aria-hidden="true"
                   >
-                    something lasting.
+                    together.
                   </span>
                 </span>
               </span>
