@@ -164,6 +164,7 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
     pendingRouteRef.current = null;
     setTargetPathname(null);
     setIsTransitioning(false);
+    document.body.classList.remove('is-route-transitioning');
     unlockDocument();
     setAnnouncement(`${routeLabel(window.location.pathname)} page loaded`);
 
@@ -295,6 +296,7 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
     }
 
     lockDocument();
+    document.body.classList.add('is-route-transitioning');
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const mobile = window.matchMedia("(max-width: 768px)").matches;
     const changeRoute = () => {

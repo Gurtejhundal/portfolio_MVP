@@ -44,17 +44,13 @@ export function ContactDepthScene({
       revealElement = section;
     }
 
-    console.log("[ContactDepthScene] init revealTrigger:", revealTrigger, "resolved element:", revealElement);
-
     if (!revealElement) {
-      console.log("[ContactDepthScene] No reveal element found. Adding is-visible immediately.");
       section.classList.add("is-visible");
       return;
     }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        console.log("[ContactDepthScene] IntersectionObserver callback. intersecting:", entry.isIntersecting, "ratio:", entry.intersectionRatio);
         if (entry.isIntersecting) {
           section.classList.add("is-visible");
         }
@@ -67,9 +63,7 @@ export function ContactDepthScene({
       const scrollY = window.scrollY;
       const docHeight = document.documentElement.scrollHeight;
       const winHeight = window.innerHeight;
-      console.log("[ContactDepthScene] scroll check. Y:", scrollY, "DocHeight:", docHeight, "WinHeight:", winHeight);
       if (scrollY + winHeight >= docHeight - 50) {
-        console.log("[ContactDepthScene] Scroll fallback trigger adding is-visible.");
         section.classList.add("is-visible");
         window.removeEventListener("scroll", handleScroll);
       }
@@ -77,12 +71,10 @@ export function ContactDepthScene({
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     const timer = setTimeout(() => {
-      console.log("[ContactDepthScene] Timer fallback (1000ms) adding is-visible.");
       section.classList.add("is-visible");
     }, 1000);
 
     return () => {
-      console.log("[ContactDepthScene] cleanup hook for revealTrigger:", revealTrigger);
       observer.disconnect();
       window.removeEventListener("scroll", handleScroll);
       clearTimeout(timer);
