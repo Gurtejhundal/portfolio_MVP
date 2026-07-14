@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=BhuTuka+Expanded+One&family=Raleway:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=BhuTuka+Expanded+One&family=Michroma&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -6243,12 +6243,11 @@ body:has(.home-experience) .site-footer {
 }
 
 .descriptor-english {
-  font-family: 'Raleway', sans-serif;
-  font-weight: 500;
-  letter-spacing: 0.05em;
+  font-family: 'Michroma', sans-serif;
+  letter-spacing: 0.055em;
   text-transform: uppercase;
   font-size: 0.82em;
-  vertical-align: 0.06em;
+  vertical-align: 0.04em;
   display: inline-block;
 }
 
