@@ -117,6 +117,7 @@ export const projects: Project[] = [
         ]
       }
     ],
+    liveUrl: "https://house-of-details.vercel.app/",
     credits: ["Design and development — Gurtejbir Singh", "Project imagery — pending final approved assets"]
   },
   {
@@ -142,7 +143,7 @@ export const projects: Project[] = [
       { label: "Document Studio operations", kind: "image", src: "/images/projects/mediaforge/document-studio.webp", alt: "MediaForge Document Studio interface", width: 1600, height: 2251, variant: "system" },
       { label: "Local image modifier", kind: "image", src: "/images/projects/mediaforge/image-modifier.webp", alt: "MediaForge image modifier interface", width: 1600, height: 2251, variant: "detail" }
     ],
-    liveUrl: "https://converter-ashen-five.vercel.app/",
+    liveUrl: "https://mediaforge-tau.vercel.app",
     repositoryUrl: "https://github.com/Gurtejhundal/MediaForge",
     theme: { background: "#171a16", foreground: "#f1eadc", accent: "#d64a2c" },
     sections: [
@@ -208,7 +209,7 @@ export const projects: Project[] = [
       { label: "Roadmap workspace", kind: "image", src: "/images/projects/traqo/roadmap.webp", alt: "Traqo roadmap detail workspace", width: 1600, height: 726, variant: "detail" },
       { label: "Task tracking detail", kind: "image", src: "/images/projects/traqo/task-detail.webp", alt: "Traqo detailed task tracking view", width: 1600, height: 753, variant: "detail" }
     ],
-    liveUrl: "https://roadmap-tracer.vercel.app",
+    liveUrl: "https://traqu.vercel.app",
     repositoryUrl: "https://github.com/Gurtejhundal/Roadmap-Tracer",
     theme: { background: "#e7edf4", foreground: "#18273a", accent: "#d34b25" },
     sections: [
