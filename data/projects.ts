@@ -418,10 +418,69 @@ export const projects: Project[] = [
     ],
     credits: ["Brand direction and development — Gurtejbir Singh", "Product photography — SWS Luxury assets"]
   },
-  ...Array.from({ length: 2 }, (_, index): Project => ({
-    slug: `future-project-${index + 7}`,
-    number: `0${index + 7}`,
-    title: `Future Project ${index + 7}`,
+  {
+    slug: "kept",
+    number: "07",
+    title: "Kept",
+    category: "Visual Memory Archive",
+    year: 2026,
+    services: ["Product Strategy", "Interaction Design", "Full-Stack Development"],
+    summary: "A visual memory archive for saving, tagging, and retrieving links discovered through Instagram reels.",
+    role: "Product design and full-stack development",
+    duration: "Ongoing",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase"],
+    layout: "split-left",
+    status: "published",
+    featured: true,
+    projectStatus: "Working public build",
+    coverPath: "/images/projects/kept/home.webp",
+    coverAvailable: true,
+    gallery: [
+      { label: "Kept archive landing", kind: "image", src: "/images/projects/kept/home.webp", alt: "Kept landing page view showing memory items and searching capabilities", width: 1920, height: 2524, variant: "cover" },
+      { label: "Find what you saved", kind: "image", src: "/images/projects/kept/home_detail.webp", alt: "Kept filters drawer and date search toolbar", width: 1920, height: 1581, variant: "detail" },
+      { label: "Personal library view", kind: "image", src: "/images/projects/kept/app.webp", alt: "Kept main masonry grid displaying cards of saved reels with metadata", width: 1920, height: 2524, variant: "system" },
+      { label: "Memory card detail and tags", kind: "image", src: "/images/projects/kept/app_detail.webp", alt: "Kept detailed card metadata and social link references", width: 1920, height: 1581, variant: "detail" }
+    ],
+    liveUrl: "https://keptnorg.vercel.app/",
+    repositoryUrl: "https://github.com/Gurtejhundal/kept",
+    theme: { background: "#f4f5f8", foreground: "#17181c", accent: "#7d8b5b" },
+    sections: [
+      {
+        label: "Context",
+        title: "Discovered links should not disappear into bookmarks.",
+        body: [
+          "Instagram reels frequently showcase resources, products, and articles, but standard bookmarks lose the visual memory of the discovery.",
+          "Kept is a visual memory archive built to capture the context, creator name, and media references of saved items."
+        ]
+      },
+      {
+        label: "Problem",
+        title: "Standard bookmark tools strip away creator context and visual cues.",
+        body: [
+          "Users usually remember *where* and *from whom* they discovered a resource, but typical browsers list folders that flatten this metadata, resulting in high retrieval friction."
+        ]
+      },
+      {
+        label: "Strategy",
+        title: "Lead with visual grid structures, creator tags, and lightning filters.",
+        body: [
+          "The workspace uses a masonry card list emphasizing thumbnail media, creator handles, and date ranges. Fast search filters query by tags, notes, or creators."
+        ]
+      },
+      {
+        label: "Development",
+        title: "Responsive Next.js components connected to secure real-time storage.",
+        body: [
+          "The implementation utilizes Next.js Server Components, Tailwind CSS layouts, and Supabase database integrations to manage users' saved items securely and responsively."
+        ]
+      }
+    ],
+    credits: ["Product strategy, design, and development — Gurtejbir Singh", "Platform screenshots — Kept live build"]
+  },
+  ...Array.from({ length: 1 }, (_, index): Project => ({
+    slug: `future-project-${index + 8}`,
+    number: `0${index + 8}`,
+    title: `Future Project ${index + 8}`,
     category: "Reserved",
     year: 2026,
     services: [],

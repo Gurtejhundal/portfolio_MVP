@@ -67,6 +67,15 @@ export function ProjectArtwork({ project }: { project: Project }) {
           <div className="sws-services"><span>Attars</span><span>Perfumes</span><span>Jewelry</span></div>
         </>
       ) : null}
+
+      {project.slug === "kept" ? (
+        <>
+          <span className="artwork-index">KP / ARCHIVE / 07</span>
+          <div className="kept-symbol"><i /></div>
+          <div className="kept-title">Kept</div>
+          <div className="kept-services"><span>Save</span><span>Search</span><span>Collection</span></div>
+        </>
+      ) : null}
     </div>
   );
 }
