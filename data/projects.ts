@@ -68,7 +68,7 @@ export const projects: Project[] = [
     status: "published",
     featured: true,
     projectStatus: "In development",
-    coverPath: "/images/projects/house-of-details/cover.webp",
+    coverPath: "/images/projects/house-of-details/hero.jpg",
     coverAvailable: false,
     gallery: [
       { label: "Studio landing hero", kind: "image", src: "/images/projects/house-of-details/hero.jpg", alt: "House of Details studio landing page configuration interface", width: 1200, height: 1600, variant: "cover" },
@@ -266,7 +266,7 @@ export const projects: Project[] = [
     status: "published",
     featured: true,
     projectStatus: "In development",
-    coverPath: "/images/projects/bibi-kaulan-ji-hospital/cover.webp",
+    coverPath: "/images/projects/bibi-kaulan-ji-hospital/live-home.png",
     coverAvailable: false,
     gallery: [
       { label: "Hospital platform — home", kind: "image", src: "/images/projects/bibi-kaulan-ji-hospital/live-home.png", alt: "Bibi Kaulan Ji Hospital public website home page", width: 1440, height: 7177 },
@@ -330,7 +330,7 @@ export const projects: Project[] = [
     status: "published",
     featured: true,
     projectStatus: "Working public build",
-    coverPath: "/images/projects/ghost-engineer/cover.webp",
+    coverPath: "/images/projects/ghost-engineer/workspace.jpg",
     coverAvailable: false,
     gallery: [
       { label: "OpenIrrigate Alert blueprint", kind: "image", src: "/images/projects/ghost-engineer/alert_blueprint.jpg", alt: "Ghost Engineer OpenIrrigate Alert impact blueprint roadmap", width: 1200, height: 1600, variant: "cover" },
@@ -380,7 +380,7 @@ export const projects: Project[] = [
     status: "published",
     featured: true,
     projectStatus: "Working public build",
-    coverPath: "/images/projects/sws-luxury/cover.webp",
+    coverPath: "/images/projects/sws-luxury/flagship.jpg",
     coverAvailable: false,
     gallery: [
       { label: "Digital flagship landing", kind: "image", src: "/images/projects/sws-luxury/home_hero.jpg", alt: "SWS Luxury curated collection flagship home page", width: 1200, height: 1600, variant: "cover" },
